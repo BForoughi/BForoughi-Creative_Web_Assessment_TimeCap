@@ -22,9 +22,9 @@
     <script>
         const recentPosts=document.getElementById('recent-posts')
 
-        // fetch('/getposts')
-        //     .then(response=>response.json())
-        //     .then(processData)
+        fetch('/getposts')
+            .then(response=>response.json())
+            .then(processData)
         
 
         function processData(data){
@@ -32,7 +32,7 @@
             recentPosts.innerHTML=""
             data.posts.forEach(post=>{
                 let li=document.createElement('li')
-                li.innerText=`${post.message} by user: ${post.user}`
+                li.innerText=`${post.postID} ${post.user}: ${post.message} `
                 recentPosts.appendChild(li)
             })
         }
