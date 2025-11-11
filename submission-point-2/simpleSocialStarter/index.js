@@ -41,21 +41,6 @@ app.get('/login', (request, response)=>{
     response.sendFile(path.join(__dirname, '/views', 'login.html'))
 })
 
-app.get('/register', (request, response)=>{
-    response.sendFile(path.join(__dirname, '/views', 'register.html'))
-})
-
-app.get('/logout', (request, response)=>{
-    response.sendFile(path.join(__dirname, '/views', 'logout.html'))
-})
-
-app.post('/register', (req, res)=>{
-    if(users.addUser(req.body.username, req.body.password)){
-      res.sendFile(path.join(__dirname, '/views', 'login.html'))  
-    }
-    res.sendFile(path.join(__dirname, '/views', 'registration_failed.html'))
-})
-
 app.post('/login', (req, res)=>{
     if(users.checkUser(req.body.username, req.body.password)){
         res.sendFile(path.join(__dirname, '/views', 'app.html'))
@@ -63,7 +48,26 @@ app.post('/login', (req, res)=>{
         console.log("invalid login")
         res.sendFile(path.join(__dirname, '/views', 'login_failed.html'))
     }
-    
 })
+
+app.get('/register', (request, response)=>{
+    response.sendFile(path.join(__dirname, '/views', 'register.html'))
+})
+
+app.post('/register', (req, res)=>{
+    if(users.addUser(req.body.username, req.body.password)){
+      res.sendFile(path.join(__dirname, '/views', 'login.html'))  
+    } else{
+        res.sendFile(path.join(__dirname, '/views', 'registration_failed.html'))
+    }
+})
+
+app.get('/logout', (request, response)=>{
+    response.sendFile(path.join(__dirname, '/views', 'logout.html'))
+})
+
+
+
+
 
 // note to self "post" sends data from the front end to back end, "get" sends data from the back end to the front end
