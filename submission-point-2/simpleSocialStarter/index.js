@@ -32,13 +32,13 @@ app.use(sessions({
     saveUninitialized: false
 }))
 
-// -------APP CONTROLLERS-------
-app.get('/app', (request, response)=>{
+// session checker function
+function checkLoggedIn(request, response, nextAction){
     // checks for a session
     if(request.session){
         // checks for a valid session with a valid username
         if(request.session.username){
-            response.sendFile(path.join(__dirname, '/views', 'app.html'))
+            nextAction()
         } else{
             // if not a valid username destroy session and redirect to not logged in
             request.session.destroy()
@@ -48,13 +48,18 @@ app.get('/app', (request, response)=>{
         // if there is no session redirect to not logged in 
         response.sendFile(path.join(__dirname, '/views', 'notloggedin.html'))
     }
-    
+}
+
+
+// -------APP CONTROLLERS-------
+app.get('/app', checkLoggedIn, (request, response)=>{
+    response.sendFile(path.join(__dirname, '/views', 'app.html'))    
 })
 
 // controller that passes the inputted message from the front into the newPost function in the backend (posts.js)
 app.post('/newpost', (request, response)=>{
     //console.log(request.body)
-    posts.newPost(request.body.message, request.body.username)
+    posts.newPost(request.body.message, "userX")
     response.sendFile(path.join(__dirname, '/views', 'app.html'))
 })
 
@@ -97,11 +102,14 @@ app.post('/register', (req, res)=>{
     }
 })
 
-app.get('/logout', (request, response)=>{
+app.get('/logout', checkLoggedIn, (request, response)=>{
     response.sendFile(path.join(__dirname, '/views', 'logout.html'))
 })
 
-
+app.post('/logout', (req, res)=>{
+    req.session.destroy()
+    res.redirect('/')
+})
 
 
 
