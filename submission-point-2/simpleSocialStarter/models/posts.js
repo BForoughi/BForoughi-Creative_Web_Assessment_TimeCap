@@ -1,18 +1,31 @@
-let nextPostID = 2
+// let nextPostID = 2;
+
+const mongoose = require('mongoose');
+const {Schema, model} = mongoose;
+
+// Schema
+const postSchema = new Schema({
+    user: String,
+    message: String,
+    likes: Number,
+    time: Date
+})
+
+const postData=model('posts', postSchema)
 
 //  user posts object
-let userPosts=[
-    {
-        postID: 1,
-        message:"hello",
-        user:"user1"
-    },
-    {
-        postID: 0,
-        message:"hello",
-        user:"user1"
-    }
-]
+// let userPosts=[
+//     {
+//         postID: 1,
+//         message:"hello",
+//         user:"user1"
+//     },
+//     {
+//         postID: 0,
+//         message:"hello",
+//         user:"user1"
+//     }
+// ]
 
 // function that adds a new post
 function newPost(message, username){
