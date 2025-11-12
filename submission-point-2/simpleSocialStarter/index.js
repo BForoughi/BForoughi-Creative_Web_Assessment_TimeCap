@@ -1,4 +1,4 @@
-// -------requiring node modules-------
+// -------Requiring node modules-------
 const dotenv = require("dotenv");
 dotenv.config();
 const express= require('express');
@@ -6,7 +6,16 @@ const app=express();
 const path=require('path');
 const PORT = process.env.PORT || 3000
 const sessions = require('express-session');
-const cookieParser = require('cookie-parser')
+const cookieParser = require('cookie-parser');
+const mongoose=require('mongoose');
+
+// -------MongoDB-------
+const mongoPassword = process.env.MONGODB_PASSWORD
+const mongoUsername = process.env.MONGODB_USERNAME
+const mongoAppName = process.env.MONGODB_MYAPPNAME
+
+const connectionString = `mongodb+srv://${mongoUsername}:${mongoPassword}@timecap.jjo4ept.mongodb.net/${mongoAppName}?retryWrites=true&w=majority`
+mongoose.connect(connectionString)
 
 // -------requiring the module exports-------
 const posts = require('./models/posts');
