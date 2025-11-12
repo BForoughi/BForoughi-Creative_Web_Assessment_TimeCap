@@ -59,13 +59,13 @@ app.get('/app', checkLoggedIn, (request, response)=>{
 // controller that passes the inputted message from the front into the newPost function in the backend (posts.js)
 app.post('/newpost', (request, response)=>{
     //console.log(request.body)
-    posts.newPost(request.body.message, "userX")
+    posts.newPost(request.body.message, request.session.username)
     response.sendFile(path.join(__dirname, '/views', 'app.html'))
 })
 
 // controller that sends the posts to the front end
 app.get('/getposts', (request, response) =>{
-    response.json({posts:posts.getPosts()})
+    response.json({posts:posts.getPosts(8)})
 })
 
 app.get('/newpost', (request, response) =>{

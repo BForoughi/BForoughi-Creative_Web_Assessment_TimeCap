@@ -40,10 +40,6 @@ function findUser(username){
     return users.find(thisUser=>thisUser.username==username)
 }
 
-function getUsers(){
-
-}
-
 module.exports={
     addUser,
     checkUser,

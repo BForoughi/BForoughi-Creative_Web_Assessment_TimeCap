@@ -21,13 +21,12 @@ function newPost(message, username){
         message: message,
         user: username
     }
-    // unshift makes the new post appear at the top - its like (push)
-    userPosts.unshift(thisPost)
+    userPosts.push(thisPost)
 }
 
-// function to return the object so it can be passed to the index.js
-function getPosts(){
-    return userPosts.slice()
+// function to return the object so it can be passed to the index.js - addapted to show the 8 most recent posts
+function getPosts(n=2){
+    return userPosts.slice(-n).reverse()
 }
 
 // module exports that send the add new post and get posts to the index.js
