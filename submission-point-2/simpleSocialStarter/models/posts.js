@@ -24,7 +24,7 @@ function newPost(message, username){
     userPosts.push(thisPost)
 }
 
-// function to return the object so it can be passed to the index.js - addapted to show the 8 most recent posts
+// function to return the object so it can be passed to the index.js - addapted to show the most recent posts
 function getPosts(n=2){
     return userPosts.slice(-n).reverse()
 }
