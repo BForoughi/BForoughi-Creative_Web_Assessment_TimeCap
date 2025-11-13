@@ -73,8 +73,8 @@ app.post('/newpost', (request, response)=>{
 })
 
 // controller that sends the posts to the front end
-app.get('/getposts', (request, response) =>{
-    response.json({posts:posts.getPosts(8)})
+app.get('/getposts', async (request, response) =>{
+    response.json({posts: await posts.getPosts(8)})
 })
 
 app.get('/newpost', (request, response) =>{
@@ -86,9 +86,12 @@ app.get('/login', (request, response)=>{
 })
 
 // login controller
-app.post('/login', (req, res)=>{
-    if(users.checkUser(req.body.username, req.body.password)){
+app.post('/login', async (req, res)=>{
+    // sends the username and password from the form and passes it into the checkUser function
+    if(await users.checkUser(req.body.username, req.body.password)){
+        // if it comes back true set the session username to the username from the form
         req.session.username=req.body.username
+        // then send them to the app file
         res.sendFile(path.join(__dirname, '/views', 'app.html'))
     } else{
         //else false log invalid login and send to login failed
@@ -102,8 +105,8 @@ app.get('/register', (request, response)=>{
 })
 
 // adding users controller
-app.post('/register', (req, res)=>{
-    if(users.addUser(req.body.username, req.body.password)){
+app.post('/register', async (req, res)=>{
+    if(await users.addUser(req.body.username, req.body.password)){
       res.sendFile(path.join(__dirname, '/views', 'login.html'))  
     } else{
         //else false send to registration failed

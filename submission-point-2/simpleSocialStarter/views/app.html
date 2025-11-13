@@ -32,7 +32,7 @@
             recentPosts.innerHTML=""
             data.posts.forEach(post=>{
                 let li=document.createElement('li')
-                li.innerText=`${post.postID} ${post.user}: ${post.message} `
+                li.innerText=`${post.user}: ${post.message} `
                 recentPosts.appendChild(li)
             })
         }
