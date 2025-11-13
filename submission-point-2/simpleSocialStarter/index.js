@@ -65,10 +65,10 @@ app.get('/app', checkLoggedIn, (request, response)=>{
     response.sendFile(path.join(__dirname, '/views', 'app.html'))    
 })
 
-// controller that passes the inputted message from the front into the newPost function in the backend (posts.js)
+// controller that passes the inputted message from the front into the addPost function in the backend (posts.js)
 app.post('/newpost', (request, response)=>{
     //console.log(request.body)
-    posts.newPost(request.body.message, request.session.username)
+    posts.addPost(request.body.message, request.session.username)
     response.sendFile(path.join(__dirname, '/views', 'app.html'))
 })
 

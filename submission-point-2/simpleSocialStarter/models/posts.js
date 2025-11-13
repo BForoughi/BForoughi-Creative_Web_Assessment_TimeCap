@@ -28,13 +28,16 @@ const postData=model('posts', postSchema)
 // ]
 
 // function that adds a new post
-function newPost(message, username){
-    let thisPost={
-        postID: nextPostID++,
+function addPost(message, username){
+    let newPost={
+        // postID: nextPostID++,
+        user: username,
         message: message,
-        user: username
+        likes: 0,
+        time: Date.now()
     }
-    userPosts.push(thisPost)
+    // userPosts.push(thisPost)
+    postData.create(newPost)
 }
 
 // function to return the object so it can be passed to the index.js - addapted to show the most recent posts
@@ -44,6 +47,6 @@ function getPosts(n=2){
 
 // module exports that send the add new post and get posts to the index.js
 module.exports={
-    newPost,
+    addPost,
     getPosts
 }
