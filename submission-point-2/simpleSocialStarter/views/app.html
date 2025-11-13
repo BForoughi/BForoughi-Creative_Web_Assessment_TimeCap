@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
     <h1>Simple Social App</h1>
@@ -32,8 +33,13 @@
             recentPosts.innerHTML=""
             data.posts.forEach(post=>{
                 let li=document.createElement('li')
+                let btn = document.createElement('button')
                 li.innerText=`${post.user}: ${post.message} `
+                btn.innerText = "❤️"
+                li.classList.add('li')
+                btn.classList.add('like-btn')
                 recentPosts.appendChild(li)
+                li.appendChild(btn)
             })
         }
     </script>

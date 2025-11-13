@@ -32,6 +32,7 @@ app.listen(PORT, ()=>{
 
 // -------initialising node modules-------
 app.use(express.static('public'))
+app.use(express.static('views'));
 app.use(express.urlencoded({extended: false}))
 
 app.use(sessions({
@@ -62,7 +63,7 @@ function checkLoggedIn(request, response, nextAction){
 
 // -------APP CONTROLLERS-------
 app.get('/app', checkLoggedIn, (request, response)=>{
-    response.sendFile(path.join(__dirname, '/views', 'app.html'))    
+    response.sendFile(path.join(__dirname, '/views', 'app.html'))  
 })
 
 // controller that passes the inputted message from the front into the addPost function in the backend (posts.js)
