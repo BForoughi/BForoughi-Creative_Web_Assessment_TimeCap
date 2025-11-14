@@ -33,7 +33,7 @@ app.listen(PORT, ()=>{
 // -------initialising node modules-------
 app.use(express.static('public'))
 app.use(express.static('views'));
-app.use(express.urlencoded({extended: false}))
+app.use(express.urlencoded({extended: true}))
 
 app.use(sessions({
     secret:process.env.mySessionSecret,
@@ -124,6 +124,29 @@ app.post('/logout', (req, res)=>{
     res.redirect('/')
 })
 
+app.post('/getposts/:id/like', async(req, res) => {
+    try{
+        const postId = req.params.id
+        const post = await posts.postData.findByIdAndUpdate(
+            postId,
+            {$inc: {likes:1}},
+            {new:true}
+        )
+
+        if(!post){
+            return res.status(404).json({ error: "Post not found" })
+        }
+
+        res.json({likes: post.likes})
+    } catch(err){
+        console.log(err)
+    }
+})
+
+// app.post('/test/:id', (req, res) => {
+//     console.log('Test route hit', req.params.id);
+//     res.json({ success: true });
+// });
 
 
 // note to self "post" sends data from the front end to back end, "get" sends data from the back end to the front end

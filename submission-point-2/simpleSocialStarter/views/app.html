@@ -22,11 +22,14 @@
     <ul id="recent-posts"></ul>
     <script>
         const recentPosts=document.getElementById('recent-posts')
-
+        //const postId = null // - post id from mongo
+        
         fetch('/getposts')
             .then(response=>response.json())
             .then(processData)
+
         
+
 
         function processData(data){
             console.log(data)
@@ -34,13 +37,39 @@
             data.posts.forEach(post=>{
                 let li=document.createElement('li')
                 let btn = document.createElement('button')
+                let likes = document.createElement('p')
+
+                // fetch(`/test/${post._id}`, { method: 'POST' });
+
                 li.innerText=`${post.user}: ${post.message} `
                 btn.innerText = "❤️"
+                likes.innerText = `${post.likes}`
+                
                 li.classList.add('li')
                 btn.classList.add('like-btn')
+                likes.id = `likes-${post._id}`
+                // console.log(post._id)
                 recentPosts.appendChild(li)
                 li.appendChild(btn)
+                li.appendChild(likes)
+
+                btn.addEventListener('click', async()=>{
+                    try{
+                        //console.log('Click', post._id)
+                        //const res = await fetch(`/posts/${postId}/like`)
+                        likePost(post._id)
+                    } catch(err) {
+                        console.log(err)
+                    }
+                })
             })
+        }
+
+        async function likePost(id){
+            
+            const res = await fetch(`/getposts/${id}/like`, {method: 'POST'})
+            const data = await res.json()
+            document.getElementById(`likes-${id}`).innerText = data.likes
         }
     </script>
 </body>

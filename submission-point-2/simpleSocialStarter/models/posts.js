@@ -7,7 +7,7 @@ const {Schema, model} = mongoose;
 const postSchema = new Schema({
     user: String,
     message: String,
-    likes: Number,
+    likes: { type: Number, default: 0 },
     time: Date
 })
 
@@ -57,5 +57,6 @@ async function getPosts(n=2){
 // module exports that send the add new post and get posts to the index.js
 module.exports={
     addPost,
-    getPosts
+    getPosts,
+    postData
 }
