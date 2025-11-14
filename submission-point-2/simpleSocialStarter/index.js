@@ -127,17 +127,31 @@ app.post('/logout', (req, res)=>{
 app.post('/getposts/:id/like', async(req, res) => {
     try{
         const postId = req.params.id
-        const post = await posts.postData.findByIdAndUpdate(
+        const post = await posts.postData.findById(postId)
+
+        // 404 error message incase there is no post
+        if(!post){
+            return res.status(404).json({ error: "Post not found" })
+        }
+
+        if(post.user === req.session.username){
+            return res.json({ 
+                allowed: false,
+                //blocked: true, 
+                likes: post.likes})
+        }
+
+        // Increments the likes by 1
+        const updateLikes = await posts.postData.findByIdAndUpdate(
             postId,
             {$inc: {likes:1}},
             {new:true}
         )
 
-        if(!post){
-            return res.status(404).json({ error: "Post not found" })
-        }
-
-        res.json({likes: post.likes})
+        res.json({
+            allowed:true,
+            likes: updateLikes.likes
+        })
     } catch(err){
         console.log(err)
     }

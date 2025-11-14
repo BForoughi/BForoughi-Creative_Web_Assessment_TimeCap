@@ -22,14 +22,12 @@
     <ul id="recent-posts"></ul>
     <script>
         const recentPosts=document.getElementById('recent-posts')
+        
         //const postId = null // - post id from mongo
         
         fetch('/getposts')
             .then(response=>response.json())
             .then(processData)
-
-        
-
 
         function processData(data){
             console.log(data)
@@ -43,7 +41,7 @@
 
                 li.innerText=`${post.user}: ${post.message} `
                 btn.innerText = "❤️"
-                likes.innerText = `${post.likes}`
+                likes.innerText = `Likes: ${post.likes}`
                 
                 li.classList.add('li')
                 btn.classList.add('like-btn')
@@ -66,10 +64,17 @@
         }
 
         async function likePost(id){
-            
             const res = await fetch(`/getposts/${id}/like`, {method: 'POST'})
             const data = await res.json()
-            document.getElementById(`likes-${id}`).innerText = data.likes
+            if(!data.allowed){
+                //console.log(data.error)
+                let cannotLike = document.createElement('p')
+                cannotLike.innerText = "You can't like your own post"
+                document.getElementById(`likes-${id}`).appendChild(cannotLike)
+                return;   
+            }
+            
+            document.getElementById(`likes-${id}`).innerText = `Likes: ${data.likes}`
         }
     </script>
 </body>
