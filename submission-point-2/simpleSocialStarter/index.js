@@ -90,8 +90,10 @@ app.get('/login', (request, response)=>{
 app.post('/login', async (req, res)=>{
     // sends the username and password from the form and passes it into the checkUser function
     if(await users.checkUser(req.body.username, req.body.password)){
+
         // if it comes back true set the session username to the username from the form
         req.session.username=req.body.username
+        
         // then send them to the app file
         res.sendFile(path.join(__dirname, '/views', 'app.html'))
     } else{
@@ -107,7 +109,7 @@ app.get('/register', (request, response)=>{
 
 // adding users controller
 app.post('/register', async (req, res)=>{
-    if(await users.addUser(req.body.username, req.body.password)){
+    if(await users.addUser(req.body.username, req.body.password, req.body.firstname, req.body.surname)){
       res.sendFile(path.join(__dirname, '/views', 'login.html'))  
     } else{
         //else false send to registration failed
@@ -139,21 +141,49 @@ app.post('/getposts/:id/like', async(req, res) => {
                 allowed: false,
                 //blocked: true, 
                 likes: post.likes})
+        } else{
+            // Increments the likes by 1
+            const updateLikes = await posts.postData.findByIdAndUpdate(
+                postId,
+                {$inc: {likes:1}},
+                {new:true}
+            )
+            res.json({
+                allowed:true,
+                likes: updateLikes.likes
+            })
         }
 
-        // Increments the likes by 1
-        const updateLikes = await posts.postData.findByIdAndUpdate(
-            postId,
-            {$inc: {likes:1}},
-            {new:true}
-        )
+        
 
-        res.json({
-            allowed:true,
-            likes: updateLikes.likes
-        })
+       
     } catch(err){
         console.log(err)
+    }
+})
+
+app.get('/user/:username', async (req, res) => {
+    try{
+        const usersFirstname = req.params.firstname
+        const usersSurname = req.params.surname
+
+        const user = await posts.postData.findOne(
+            {username: username},
+            {firstname: 1, surname: 1}
+        )
+
+        if(user){
+            res.json({
+                found: true,
+                firstname: user.firstname,
+                surname: user.surname
+            })
+        }
+
+        return res.json({found: false})
+    } catch(err){
+        console.log(err)
+        res.json({found:false})
     }
 })
 

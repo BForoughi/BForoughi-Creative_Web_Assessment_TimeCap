@@ -14,13 +14,15 @@ const {Schema, model} = mongoose;
 // Schema
 const userSchema = new Schema({
     username: String,
-    password: String
+    password: String,
+    firstname: String,
+    surname: String
 })
 
 const userData=model('users', userSchema)
 
 // username and password are submitted via the form
-async function addUser(registerUsername, password){
+async function addUser(registerUsername, password, firstname, surname){
     // check whether the username exists using the findUser function
     // let existingUser=findUser(username)
     let existingUser = null
@@ -29,7 +31,9 @@ async function addUser(registerUsername, password){
     if(!existingUser){
         let newUser = {
             username:registerUsername,
-            password:password
+            password:password,
+            firstname:firstname,
+            surname:surname
         }
         await userData.create(newUser)
         // users.push(newUser)

@@ -7,7 +7,11 @@
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-    <h1>Simple Social App</h1>
+    <div>
+        <h1>Simple Social App</h1>
+        <p id="usersName"></p>
+    </div>
+    
         <a href="login">Login</a>
         <a href="logout">Logout</a>
         <a href="register">Register</a>
@@ -22,6 +26,13 @@
     <ul id="recent-posts"></ul>
     <script>
         const recentPosts=document.getElementById('recent-posts')
+
+        const response = await fetch(`/user/${username}`)
+        const userData = response.json()
+
+        if(userData.found){
+            console.log(userData.firstname, userData.surname)
+        }
         
         //const postId = null // - post id from mongo
         
