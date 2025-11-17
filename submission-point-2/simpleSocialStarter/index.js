@@ -37,7 +37,12 @@ app.use(express.urlencoded({extended: true}))
 
 app.use(sessions({
     secret:process.env.mySessionSecret,
-    cookie: {maxAge: threeMins},
+    cookie: {
+        secure: false, // allows for cookies to be sent over http
+        httpOnly: true, // this means js cannot access the cookie, when using sessions you always want this as it denies anyone trying to steal the cookie
+        // sameSite allows the cookie to be sent over sites
+        sameSite: "lax" // lax allows it to be via GET requests
+    },
     resave: false,
     saveUninitialized: false
 }))
@@ -153,25 +158,33 @@ app.post('/getposts/:id/like', async(req, res) => {
                 likes: updateLikes.likes
             })
         }
-
-        
-
-       
     } catch(err){
         console.log(err)
     }
 })
 
+// getting the session username
+app.get("/session-user", (request, response) => {
+    if (request.session.username) {
+        return response.json({
+            loggedIn: true,
+            username: request.session.username
+        })
+    }
+    return response.json({ loggedIn: false });
+    
+});
+
+// a get controller that retrieves the users first and last name from the database
 app.get('/user/:username', async (req, res) => {
     try{
-        const usersFirstname = req.params.firstname
-        const usersSurname = req.params.surname
-
+        const username = req.params.username
+        // getting the data from the database
         const user = await posts.postData.findOne(
             {username: username},
             {firstname: 1, surname: 1}
         )
-
+        // if user founnd set the names and send it to the front end
         if(user){
             res.json({
                 found: true,
@@ -179,7 +192,7 @@ app.get('/user/:username', async (req, res) => {
                 surname: user.surname
             })
         }
-
+        // else return user not found
         return res.json({found: false})
     } catch(err){
         console.log(err)

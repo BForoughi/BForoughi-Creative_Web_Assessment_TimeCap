@@ -26,13 +26,6 @@
     <ul id="recent-posts"></ul>
     <script>
         const recentPosts=document.getElementById('recent-posts')
-
-        const response = await fetch(`/user/${username}`)
-        const userData = response.json()
-
-        if(userData.found){
-            console.log(userData.firstname, userData.surname)
-        }
         
         //const postId = null // - post id from mongo
         
@@ -41,7 +34,7 @@
             .then(processData)
 
         function processData(data){
-            console.log(data)
+            //console.log(data)
             recentPosts.innerHTML=""
             data.posts.forEach(post=>{
                 let li=document.createElement('li')
@@ -87,6 +80,54 @@
             
             document.getElementById(`likes-${id}`).innerText = `Likes: ${data.likes}`
         }
+
+        // function that recieves the logged in user
+        async function getCurrentUser() {
+            // fetching backend data and sending cookies so the user's session is recoginsed 
+            const response = await fetch("/session-user", {method: "GET", credentials: "include"})
+            const data = await response.json()
+
+            if(!data.loggedIn){
+                console.log("User not logged in")
+                return null
+            } else{
+                return data.username
+            }
+        }
+
+        // fetching the users first and last name from the backend get route
+        async function getUsersName(username) {
+            try{
+                const response = await fetch(`/user/${username}`)
+                const userData = await response.json()
+
+                if(userData.found){
+                    console.log(userData.firstname, userData.surname)
+                    return userData;
+                } else{
+                    console.log("user not found")
+                    return null
+                }
+            } catch(err){
+                console.log("fetch error: ", err)
+            }  
+        }
+        //getUsersName(userData.username);
+
+        async function loadUsername() {
+            const username = await getCurrentUser()
+            if(!username) {
+                return console.log("no username")
+            }
+            const fullName = await getUsersName(username)
+            if(!fullName){
+                return console.log("no name")
+            }
+
+            console.log(`${fullName.firstname} ${fullName.surname}`)
+            document.getElementById("usersName").innerText = `${fullName.firstname} ${fullName.surname}`
+        }
+        loadUsername()
     </script>
 </body>
 </html>
