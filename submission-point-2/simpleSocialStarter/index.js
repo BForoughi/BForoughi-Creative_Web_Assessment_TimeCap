@@ -33,6 +33,8 @@ app.listen(PORT, ()=>{
 // -------initialising node modules-------
 app.use(express.static('public'))
 app.use(express.static('views'));
+app.use('/scripts', express.static('scripts'));
+
 app.use(express.urlencoded({extended: true}))
 
 app.use(sessions({
@@ -69,6 +71,11 @@ function checkLoggedIn(request, response, nextAction){
 // -------APP CONTROLLERS-------
 app.get('/app', checkLoggedIn, (request, response)=>{
     response.sendFile(path.join(__dirname, '/views', 'app.html'))  
+})
+
+// route that allows a logged in user to access their profile page
+app.get('/profile_page', checkLoggedIn, (request, response)=>{
+    response.sendFile(path.join(__dirname, '/views', 'profile_page.html'))  
 })
 
 // controller that passes the inputted message from the front into the addPost function in the backend (posts.js)
@@ -199,6 +206,28 @@ app.get('/user/:username', async (req, res) => {
         res.json({found:false})
     }
 })
+
+app.post('/user/update-name', checkLoggedIn, async (req,res) =>{
+    const { edit_fn, edit_ln} = req.body
+    const username = req.session.username
+
+    try{
+        const updateUser = await users.userData.findByIdAndUpdate(
+            {username}, // shorthand js - the variable name is the same as the input field
+            {firstname: edit_fn, surname: edit_ln}, // longhand js as they are not the same
+            {new: true}
+        )
+
+        if(updateUser){
+            return res.redirect('/profile_page')
+        }
+        return res.send("update failed")
+    } catch(err){
+        console.log(err)
+        res.send("update failed")
+    }
+})
+
 
 // app.post('/test/:id', (req, res) => {
 //     console.log('Test route hit', req.params.id);

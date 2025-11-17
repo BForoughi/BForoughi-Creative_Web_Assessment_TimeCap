@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/style.css">
+    <title>Profile Page</title>
     <script src="/scripts/app.js" defer></script>
 </head>
 <body>
@@ -12,20 +11,25 @@
         <h1>Simple Social App</h1>
         <p id="users-name"></p>
     </div>
-    
+    <nav>
         <a href="login">Login</a>
         <a href="logout">Logout</a>
         <a href="register">Register</a>
         <a href="app">Application</a>
         <a href="profile_page">Profile Page</a>
-    <h4>New post</h4>
-    <form action="/newpost" method="POST">
-        <label>message</label>
-        <input type="text" id="message" name="message">
-        <input type="submit" value="post message">
+    </nav>
+
+    <h1>Edit Profile Name</h1>
+    <form action="/user/update-name" method="POST">
+        <Label>Firstname: </Label>
+        <input type="text" id="edit-fn" name="edit-fn"><br>
+        <label>Surname: </label>
+        <input type="text" id="edit-ln" name="edit-ln">
+        <input type="submit" value="Edit">
     </form>
-    <h4>Recent posts</h4>
-    <ul id="recent-posts"></ul>
+    
+    <h1>Profile Page</h1>
+    
     
 </body>
 </html>
