@@ -98,7 +98,7 @@
         // fetching the users first and last name from the backend get route
         async function getUsersName(username) {
             try{
-                const response = await fetch(`/user/${username}`)
+                const response = await fetch(`/user/${username}`, {method: "GET", credentials: "include"})
                 const userData = await response.json()
 
                 if(userData.found){

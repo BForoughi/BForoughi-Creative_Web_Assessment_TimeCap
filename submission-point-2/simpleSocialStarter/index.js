@@ -180,13 +180,13 @@ app.get('/user/:username', async (req, res) => {
     try{
         const username = req.params.username
         // getting the data from the database
-        const user = await posts.postData.findOne(
+        const user = await users.userData.findOne(
             {username: username},
-            {firstname: 1, surname: 1}
+            {firstname: 1, surname: 1, _id: 0}
         )
         // if user founnd set the names and send it to the front end
         if(user){
-            res.json({
+            return res.json({
                 found: true,
                 firstname: user.firstname,
                 surname: user.surname
@@ -204,6 +204,12 @@ app.get('/user/:username', async (req, res) => {
 //     console.log('Test route hit', req.params.id);
 //     res.json({ success: true });
 // });
+
+// app.get("/debug", (req, res) => {
+//     console.log("Cookies sent by browser:", req.headers.cookie);
+//     res.json({ cookies: req.headers.cookie });
+// });
+
 
 
 // note to self "post" sends data from the front end to back end, "get" sends data from the back end to the front end

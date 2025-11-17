@@ -63,5 +63,6 @@ function findUser(username){
 module.exports={
     addUser,
     checkUser,
-    findUser
+    findUser,
+    userData
 }
