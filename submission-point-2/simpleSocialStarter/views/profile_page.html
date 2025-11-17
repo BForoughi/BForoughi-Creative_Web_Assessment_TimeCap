@@ -20,13 +20,14 @@
     </nav>
 
     <h1>Edit Profile Name</h1>
-    <form action="/user/update-name" method="POST">
+    <form id="editNameForm" action="/user/update-name" method="POST">
         <Label>Firstname: </Label>
         <input type="text" id="edit-fn" name="edit-fn"><br>
         <label>Surname: </label>
         <input type="text" id="edit-ln" name="edit-ln">
         <input type="submit" value="Edit">
     </form>
+    <p id="updateStatus"></p>
     
     <h1>Profile Page</h1>
     
