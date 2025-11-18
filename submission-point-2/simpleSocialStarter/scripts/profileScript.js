@@ -1,5 +1,5 @@
 const editNameForm = document.getElementById("editNameForm")
-const updateStatus = document.getElementById("updateStatus")
+
 
 editNameForm.addEventListener("submit", async(e)=>{
     e.preventDefault()
@@ -20,8 +20,10 @@ editNameForm.addEventListener("submit", async(e)=>{
         const data = await res.json()
 
         if(data.success){
-            updateStatus.innerText = "Name updated successfully!"
             document.getElementById("users-name").innerText = `${data.firstname} ${data.surname}`
+            window.location.reload()
+            const updateStatus = document.getElementById("updateStatus")
+            updateStatus.innerText = "Name updated successfully!"
         } else{
             updateStatus.innerText = `Update failed: ${data.message}`
         }

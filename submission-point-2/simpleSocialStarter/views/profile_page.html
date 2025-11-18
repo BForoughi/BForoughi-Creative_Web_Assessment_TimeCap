@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile Page</title>
     <script src="/scripts/app.js" defer></script>
+    <script src="../scripts/profileScript.js" defer></script>
 </head>
 <body>
     <div>
@@ -22,9 +23,9 @@
     <h1>Edit Profile Name</h1>
     <form id="editNameForm" action="/user/update-name" method="POST">
         <Label>Firstname: </Label>
-        <input type="text" id="edit-fn" name="edit-fn"><br>
+        <input type="text" id="edit-fn" name="firstname"><br>
         <label>Surname: </label>
-        <input type="text" id="edit-ln" name="edit-ln">
+        <input type="text" id="edit-ln" name="surname">
         <input type="submit" value="Edit">
     </form>
     <p id="updateStatus"></p>

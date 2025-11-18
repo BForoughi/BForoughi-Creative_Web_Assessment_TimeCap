@@ -32,10 +32,10 @@ app.listen(PORT, ()=>{
 
 // -------initialising node modules-------
 app.use(express.static('public'))
-app.use(express.static('views'));
-app.use('/scripts', express.static('scripts'));
-
+app.use(express.static('views'))
+app.use('/scripts', express.static('scripts'))
 app.use(express.urlencoded({extended: true}))
+app.use(express.json())
 
 app.use(sessions({
     secret:process.env.mySessionSecret,
@@ -43,7 +43,8 @@ app.use(sessions({
         secure: false, // allows for cookies to be sent over http
         httpOnly: true, // this means js cannot access the cookie, when using sessions you always want this as it denies anyone trying to steal the cookie
         // sameSite allows the cookie to be sent over sites
-        sameSite: "lax" // lax allows it to be via GET requests
+        sameSite: "lax", // lax allows it to be via GET requests
+        maxAge: oneHour
     },
     resave: false,
     saveUninitialized: false
@@ -208,18 +209,27 @@ app.get('/user/:username', async (req, res) => {
 })
 
 app.post('/user/update-name', checkLoggedIn, async (req,res) =>{
-    const { edit_fn, edit_ln} = req.body
+    // const { firstname, surname} = req.body
+    const firstname = req.body.firstname
+    const surname = req.body.surname
     const username = req.session.username
-
+    
     try{
-        const updateUser = await users.userData.findByIdAndUpdate(
+        // console.log("BODY:", req.body);
+        // console.log("SESSION:", req.session);
+        // console.log("USERNAME:", req.session.username);
+        const updateUser = await users.userData.findOneAndUpdate(
             {username}, // shorthand js - the variable name is the same as the input field
-            {firstname: edit_fn, surname: edit_ln}, // longhand js as they are not the same
+            {firstname, surname}, // longhand: {firstname: firstname, surname: surname}
             {new: true}
         )
 
         if(updateUser){
-            return res.redirect('/profile_page')
+            return res.json({
+                success: true,
+                firstname: updateUser.firstname,
+                surname: updateUser.surname
+            })
         }
         return res.send("update failed")
     } catch(err){
