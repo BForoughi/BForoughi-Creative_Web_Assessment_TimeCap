@@ -17,6 +17,8 @@ const mongoAppName = process.env.MONGODB_MYAPPNAME
 const connectionString = `mongodb+srv://${mongoUsername}:${mongoPassword}@timecap.jjo4ept.mongodb.net/${mongoAppName}?retryWrites=true&w=majority`
 mongoose.connect(connectionString)
 
+const MongoStore = require("connect-mongo")
+
 // -------requiring the module exports-------
 const posts = require('./models/posts');
 const users = require('./models/users');
@@ -39,6 +41,10 @@ app.use(express.json())
 
 app.use(sessions({
     secret:process.env.mySessionSecret,
+    store: MongoStore.create({
+      mongoUrl: connectionString,
+      ttl: 60 * 60
+    }),
     cookie: {
         secure: false, // allows for cookies to be sent over http
         httpOnly: true, // this means js cannot access the cookie, when using sessions you always want this as it denies anyone trying to steal the cookie

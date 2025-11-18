@@ -21,7 +21,6 @@ editNameForm.addEventListener("submit", async(e)=>{
 
         if(data.success){
             document.getElementById("users-name").innerText = `${data.firstname} ${data.surname}`
-            window.location.reload()
             const updateStatus = document.getElementById("updateStatus")
             updateStatus.innerText = "Name updated successfully!"
         } else{

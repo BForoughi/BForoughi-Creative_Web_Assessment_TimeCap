@@ -79,7 +79,7 @@ async function getUsersName(username) {
         const userData = await response.json()
 
         if(userData.found){
-            console.log(userData.firstname, userData.surname)
+            //console.log(userData.firstname, userData.surname)
             return userData;
         } else{
             console.log("user not found")
@@ -101,7 +101,7 @@ async function loadUsername() {
         return console.log("no name")
     }
 
-    console.log(`${fullName.firstname} ${fullName.surname}`)
+    //console.log(`${fullName.firstname} ${fullName.surname}`)
     document.getElementById("users-name").innerText = `${fullName.firstname} ${fullName.surname}`
 }
 loadUsername()
