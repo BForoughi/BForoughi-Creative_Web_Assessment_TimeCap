@@ -34,8 +34,10 @@ app.listen(PORT, ()=>{
 
 // -------initialising node modules-------
 app.use(express.static('public'))
-app.use(express.static('views'))
+//app.use(express.static('views'))
+//app.use(express.static('admin'))
 app.use('/scripts', express.static('scripts'))
+app.use('/admin', express.static('admin'))
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 
@@ -80,9 +82,17 @@ app.get('/app', checkLoggedIn, (request, response)=>{
     response.sendFile(path.join(__dirname, '/views', 'app.html'))  
 })
 
+app.get('/debug', (req, res) => {
+    res.json(req.session);
+});
+
 // route that allows a logged in user to access their profile page
 app.get('/profile_page', checkLoggedIn, (request, response)=>{
     response.sendFile(path.join(__dirname, '/views', 'profile_page.html'))  
+})
+
+app.get('/admin_page', (request, response)=>{
+    response.sendFile(path.join(__dirname, '/admin', 'admin_page.html'))  
 })
 
 // controller that passes the inputted message from the front into the addPost function in the backend (posts.js)
@@ -97,6 +107,71 @@ app.get('/getposts', async (request, response) =>{
     response.json({posts: await posts.getPosts(8)})
 })
 
+// admin checker 
+async function adminOnly(req, res, nextAction){
+    console.log("Full session object:", req.session)
+    // checks for a session
+    if(req.session.username){
+        const user = await users.userData.findOne({username: req.session.username});
+        req.user = user;
+        if(req.user && req.user.admin){
+            nextAction()
+        } else{
+            // if not a valid username destroy session and redirect to not logged in
+            req.session.destroy()
+            res.sendFile(path.join(__dirname, '/views', 'notloggedin.html'))
+        }
+    } else{
+        // if there is no session redirect to not logged in 
+        res.sendFile(path.join(__dirname, '/views', 'notloggedin.html'))
+    }
+}
+
+// checking admin but as a get request to send data
+app.get('/isAdmin', async (req, res)=>{
+    //console.log(req.session.username)
+    if(req.session.username){
+        const user = await users.userData.findOne({username: req.session.username})
+        if(!user){
+            return res.json({admin: false})
+            //return console.log(user)
+        }
+        console.log(user)
+        res.json({admin: user.admin === true})
+    } else{
+        return res.json({admin: false})
+    }
+})
+
+// getting all posts
+// app.get('/getallposts', adminOnly, async (request, response) =>{
+//     response.json({posts: await posts.getAllPosts()})
+// })
+
+// getting users
+app.get("/users", adminOnly, async (req, res)=>{
+    const getUsers = await users.userData.find({}, "-password")
+    res.json(getUsers)
+})
+
+app.get("/users/:id/posts", adminOnly, async(req, res)=>{
+    const usersPosts = await posts.postData.find({author: req.params.id})
+    res.json(usersPosts)
+})
+
+// deleting users and their posts
+app.delete("/users/:id", adminOnly, async (req, res)=>{
+    await users.userData.findByIdAndDelete(req.params.id)
+    await posts.postData.deleteMany({author: req.params.id})
+    res.json({message: "User and their posts have been deleted"})
+})
+
+// deleting posts
+app.delete("/posts/:id", adminOnly, async (req, res) =>{
+    await posts.postData.findByIdAndDelete(req.params.id)
+    res.json({message: "Post deleted"})
+})
+
 app.get('/newpost', (request, response) =>{
     response.sendFile(path.join(__dirname, '/views', 'app.html'))
 })
@@ -108,11 +183,13 @@ app.get('/login', (request, response)=>{
 // login controller
 app.post('/login', async (req, res)=>{
     // sends the username and password from the form and passes it into the checkUser function
-    if(await users.checkUser(req.body.username, req.body.password)){
+    const username = req.body.username
+    const password = req.body.password
+    if(await users.checkUser(username, password)){
 
         // if it comes back true set the session username to the username from the form
-        req.session.username=req.body.username
-        
+        //req.session.username=req.body.username
+        req.session.username = username
         // then send them to the app file
         res.sendFile(path.join(__dirname, '/views', 'app.html'))
     } else{
@@ -243,6 +320,8 @@ app.post('/user/update-name', checkLoggedIn, async (req,res) =>{
         res.send("update failed")
     }
 })
+
+
 
 
 // app.post('/test/:id', (req, res) => {

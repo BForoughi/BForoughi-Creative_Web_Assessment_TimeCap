@@ -1,0 +1,24 @@
+.like-btn{
+    
+    border-radius: 7px;
+}
+
+.li{
+    margin-bottom: 20px;
+}
+
+#users-name{
+    font-size: 20px;
+}
+
+#welcome-admin{
+    margin: 0%;
+    width: 20%;
+    display: flex;
+    justify-content: center;
+}
+
+#welcome{
+    margin-right: 5px;
+    font-size: 20px;
+}

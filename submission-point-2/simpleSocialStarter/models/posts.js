@@ -54,9 +54,14 @@ async function getPosts(n=2){
     return foundPosts
 }
 
+// async function getAllPosts(){
+//     return await postData.find({}).sort({'time':-1}).exec()
+// }
+
 // module exports that send the add new post and get posts to the index.js
 module.exports={
     addPost,
     getPosts,
+    //getAllPosts,
     postData
 }

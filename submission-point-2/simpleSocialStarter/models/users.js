@@ -14,9 +14,10 @@ const {Schema, model} = mongoose;
 // Schema
 const userSchema = new Schema({
     username: String,
-    password: String,
+    password: String,   //{type: String, select: false},
     firstname: String,
-    surname: String
+    surname: String,
+    admin: { type: Boolean, default: false }
 })
 
 const userData=model('users', userSchema)

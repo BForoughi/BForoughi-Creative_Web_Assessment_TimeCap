@@ -4,20 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/css/style.css">
     <script src="/scripts/app.js" defer></script>
+    <script src="/scripts/usersName.js" defer></script>
+    <script src="/admin/adminScript.js" defer></script>
 </head>
 <body>
     <div>
         <h1>Simple Social App</h1>
         <p id="users-name"></p>
     </div>
-    
+    <nav id="navbar">
         <a href="login">Login</a>
         <a href="logout">Logout</a>
         <a href="register">Register</a>
         <a href="app">Application</a>
         <a href="profile_page">Profile Page</a>
+    </nav>
+        
     <h4>New post</h4>
     <form action="/newpost" method="POST">
         <label>message</label>
