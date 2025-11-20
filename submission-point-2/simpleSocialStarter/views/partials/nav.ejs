@@ -1,0 +1,11 @@
+<nav id="navbar">
+    <a href="index.html">Home</a>
+    <% if(isLoggedIn){%>
+        <a href="logout">Logout</a>
+        <a href="app">Application</a>
+    <%} else{%>
+        <a href="login">Login</a>
+        <a href="register">Register</a>
+
+    <% } %>
+</nav>

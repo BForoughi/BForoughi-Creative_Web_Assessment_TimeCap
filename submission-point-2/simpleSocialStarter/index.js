@@ -58,6 +58,8 @@ app.use(sessions({
     saveUninitialized: false
 }))
 
+app.set('view engine','ejs')
+
 // session checker function
 function checkLoggedIn(request, response, nextAction){
     // checks for a session
@@ -73,6 +75,29 @@ function checkLoggedIn(request, response, nextAction){
     } else{
         // if there is no session redirect to not logged in 
         response.sendFile(path.join(__dirname, '/views', 'notloggedin.html'))
+    }
+}
+
+function checkLoggedInState(req){
+    return req.session && req.session.username
+}
+
+// admin checker 
+async function adminOnly(req, res, nextAction){
+    //console.log("Full session object:", req.session)
+    // checks for a session
+    if(req.session.username){
+        const user = await users.userData.findOne({username: req.session.username});
+        req.user = user;
+        if(req.user && req.user.admin){
+            nextAction()
+        } else{
+            // needs to return json so none admin users can continue using the app
+            return res.json({ admin: false })
+        }
+    } else{
+        // if there is no session redirect to not logged in 
+        res.sendFile(path.join(__dirname, '/views', 'notloggedin.html'))
     }
 }
 
@@ -107,24 +132,6 @@ app.get('/getposts', async (request, response) =>{
     response.json({posts: await posts.getPosts(8)})
 })
 
-// admin checker 
-async function adminOnly(req, res, nextAction){
-    //console.log("Full session object:", req.session)
-    // checks for a session
-    if(req.session.username){
-        const user = await users.userData.findOne({username: req.session.username});
-        req.user = user;
-        if(req.user && req.user.admin){
-            nextAction()
-        } else{
-            // needs to return json so none admin users can continue using the app
-            return res.json({ admin: false })
-        }
-    } else{
-        // if there is no session redirect to not logged in 
-        res.sendFile(path.join(__dirname, '/views', 'notloggedin.html'))
-    }
-}
 
 // checking admin but as a get request to send data
 app.get('/isAdmin', async (req, res)=>{
@@ -186,7 +193,8 @@ app.get('/newpost', (request, response) =>{
 })
 
 app.get('/login', (request, response)=>{
-    response.sendFile(path.join(__dirname, '/views', 'login.html'))
+    //response.sendFile(path.join(__dirname, '/views', 'login.html'))
+    response.render('pages/login.ejs', {isLoggedIn: checkLoggedInState(request)})
 })
 
 // login controller
