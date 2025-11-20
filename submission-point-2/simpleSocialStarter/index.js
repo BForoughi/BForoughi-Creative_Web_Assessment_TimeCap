@@ -160,9 +160,19 @@ app.get("/users/:id/posts", adminOnly, async(req, res)=>{
 
 // deleting users and their posts
 app.delete("/users/:id", adminOnly, async (req, res)=>{
-    await users.userData.findByIdAndDelete(req.params.id)
-    await posts.postData.deleteMany({user: req.params.username})
-    res.json({message: "User and their posts have been deleted"})
+    try{
+        const user = await users.userData.findById(req.params.id)
+        if(!user){
+            return res.json({message: "user not found"})
+        }
+        await posts.postData.deleteMany({user: user.username})
+        await users.userData.findByIdAndDelete(req.params.id)
+        
+        res.json({message: "User and their posts have been deleted"})
+    }catch(err){
+        console.log('issue with: ', err)
+    }
+    
 })
 
 // deleting posts
