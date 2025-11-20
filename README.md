@@ -29,7 +29,7 @@
     - forgotten.
     - The album feature is great for people who love documenting their lives, as it allows them to keep all media in one location.
    
-##Key Techniques
+## Key Techniques
 - The main techniques involve the use of GET, POST, and fetch requests with express js and mongoose for connecting to a MongoDB cluster.
 - However, the key features added are an admin page that only gets added to the navbar when the user has been verified as an admin. On this page, the admin can view both users and their posts and delete either specific posts or the user and all their posts.
 - The app page also now features like buttons on all the posts with a like counter; the like button, however, is only allowed for non-authors of the post. When the author tries to like their own post a message pops up saying that liking is not permitted to the author and the like is not logged into the database.
