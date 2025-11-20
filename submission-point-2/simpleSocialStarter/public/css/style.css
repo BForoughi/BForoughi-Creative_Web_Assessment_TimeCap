@@ -13,6 +13,7 @@
 
 #welcome-admin{
     margin: 0%;
+    padding: 0%;
     width: 20%;
     display: flex;
     justify-content: center;
@@ -21,4 +22,14 @@
 #welcome{
     margin-right: 5px;
     font-size: 20px;
+}
+
+.users-li{
+    font-size: 20px;
+    margin-bottom: 50px;
+}
+
+.admin-btns{
+    margin-right: 5px;
+    margin-left: 10px;
 }

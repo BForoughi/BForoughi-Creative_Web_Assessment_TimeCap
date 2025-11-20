@@ -91,7 +91,7 @@ app.get('/profile_page', checkLoggedIn, (request, response)=>{
     response.sendFile(path.join(__dirname, '/views', 'profile_page.html'))  
 })
 
-app.get('/admin_page', (request, response)=>{
+app.get('/admin_page', adminOnly,(request, response)=>{
     response.sendFile(path.join(__dirname, '/admin', 'admin_page.html'))  
 })
 
@@ -109,7 +109,7 @@ app.get('/getposts', async (request, response) =>{
 
 // admin checker 
 async function adminOnly(req, res, nextAction){
-    console.log("Full session object:", req.session)
+    //console.log("Full session object:", req.session)
     // checks for a session
     if(req.session.username){
         const user = await users.userData.findOne({username: req.session.username});
@@ -117,9 +117,8 @@ async function adminOnly(req, res, nextAction){
         if(req.user && req.user.admin){
             nextAction()
         } else{
-            // if not a valid username destroy session and redirect to not logged in
-            req.session.destroy()
-            res.sendFile(path.join(__dirname, '/views', 'notloggedin.html'))
+            // needs to return json so none admin users can continue using the app
+            return res.json({ admin: false })
         }
     } else{
         // if there is no session redirect to not logged in 
@@ -136,7 +135,7 @@ app.get('/isAdmin', async (req, res)=>{
             return res.json({admin: false})
             //return console.log(user)
         }
-        console.log(user)
+        //console.log(user)
         res.json({admin: user.admin === true})
     } else{
         return res.json({admin: false})
@@ -162,7 +161,7 @@ app.get("/users/:id/posts", adminOnly, async(req, res)=>{
 // deleting users and their posts
 app.delete("/users/:id", adminOnly, async (req, res)=>{
     await users.userData.findByIdAndDelete(req.params.id)
-    await posts.postData.deleteMany({author: req.params.id})
+    await posts.postData.deleteMany({user: req.params.username})
     res.json({message: "User and their posts have been deleted"})
 })
 
