@@ -13,6 +13,7 @@ const postSchema = new Schema({
 
 const postData=model('posts', postSchema)
 
+// ---------------KEPT FOR REFERENCE-------------
 //  user posts object
 // let userPosts=[
 //     {

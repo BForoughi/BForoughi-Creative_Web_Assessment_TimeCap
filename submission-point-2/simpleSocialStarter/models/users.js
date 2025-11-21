@@ -1,13 +1,3 @@
-// let users=[
-//     {
-//         username: "user1",
-//         password: "123"
-//     },{
-//         username: "user2",
-//         password: "456"
-//     }
-// ]
-
 const mongoose = require('mongoose');
 const {Schema, model} = mongoose;
 
