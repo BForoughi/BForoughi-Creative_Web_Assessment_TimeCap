@@ -107,9 +107,9 @@ app.get('/app', checkLoggedIn, (request, response)=>{
     response.sendFile(path.join(__dirname, '/views', 'app.html'))  
 })
 
-app.get('/debug', (req, res) => {
-    res.json(req.session);
-});
+// app.get('/debug', (req, res) => {
+//     res.json(req.session);
+// });
 
 app.get('/login', (request, response)=>{
     //response.sendFile(path.join(__dirname, '/views', 'login.html'))
