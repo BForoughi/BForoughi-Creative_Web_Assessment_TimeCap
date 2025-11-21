@@ -32,5 +32,6 @@
 ## Key Techniques
 - The main techniques involve the use of GET, POST, and fetch requests with express js and mongoose for connecting to a MongoDB cluster.
 - However, the key features added are an admin page that only gets added to the navbar when the user has been verified as an admin. On this page, the admin can view both users and their posts and delete either specific posts or the user and all their posts.
-- The app page also now features like buttons on all the posts with a like counter; the like button, however, is only allowed for non-authors of the post. When the author tries to like their own post a message pops up saying that liking is not permitted to the author and the like is not logged into the database.
+- The app page also now features like buttons on all the posts with a like counter; the like button, however, is only allowed for non-authors of the post. When the author tries to like their own post, a message pops up saying that liking is not permitted to the author and the like is not logged into the database.
 - The system also now features a profile page where the user can change their name, and their change gets updated and saved into MongoDB and also displayed on the app and profile pages.
+- Also, the login page is served with ejs - Dave and I spoke, and he was happy for me to just serve the login page as we discussed that I want to learn and use React for my front-end.
