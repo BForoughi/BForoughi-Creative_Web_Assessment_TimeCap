@@ -111,6 +111,53 @@ app.get('/debug', (req, res) => {
     res.json(req.session);
 });
 
+app.get('/login', (request, response)=>{
+    //response.sendFile(path.join(__dirname, '/views', 'login.html'))
+    response.render('pages/login.ejs', {isLoggedIn: checkLoggedInState(request)})
+})
+
+// login controller
+app.post('/login', async (req, res)=>{
+    // sends the username and password from the form and passes it into the checkUser function
+    const username = req.body.username
+    const password = req.body.password
+    if(await users.checkUser(username, password)){
+
+        // if it comes back true set the session username to the username from the form
+        //req.session.username=req.body.username
+        req.session.username = username
+        // then send them to the app file
+        res.sendFile(path.join(__dirname, '/views', 'app.html'))
+    } else{
+        //else false log invalid login and send to login failed
+        console.log("invalid login")
+        res.sendFile(path.join(__dirname, '/views', 'login_failed.html'))
+    }
+})
+
+app.get('/register', (request, response)=>{
+    response.sendFile(path.join(__dirname, '/views', 'register.html'))
+})
+
+// adding users controller
+app.post('/register', async (req, res)=>{
+    if(await users.addUser(req.body.username, req.body.password, req.body.firstname, req.body.surname)){
+      res.sendFile(path.join(__dirname, '/views', 'login.html'))  
+    } else{
+        //else false send to registration failed
+        res.sendFile(path.join(__dirname, '/views', 'registration_failed.html'))
+    }
+})
+
+app.get('/logout', checkLoggedIn, (request, response)=>{
+    response.sendFile(path.join(__dirname, '/views', 'logout.html'))
+})
+
+app.post('/logout', (req, res)=>{
+    req.session.destroy()
+    res.redirect('/')
+})
+
 // route that allows a logged in user to access their profile page
 app.get('/profile_page', checkLoggedIn, (request, response)=>{
     response.sendFile(path.join(__dirname, '/views', 'profile_page.html'))  
@@ -203,52 +250,6 @@ app.get('/newpost', (request, response) =>{
     response.sendFile(path.join(__dirname, '/views', 'app.html'))
 })
 
-app.get('/login', (request, response)=>{
-    //response.sendFile(path.join(__dirname, '/views', 'login.html'))
-    response.render('pages/login.ejs', {isLoggedIn: checkLoggedInState(request)})
-})
-
-// login controller
-app.post('/login', async (req, res)=>{
-    // sends the username and password from the form and passes it into the checkUser function
-    const username = req.body.username
-    const password = req.body.password
-    if(await users.checkUser(username, password)){
-
-        // if it comes back true set the session username to the username from the form
-        //req.session.username=req.body.username
-        req.session.username = username
-        // then send them to the app file
-        res.sendFile(path.join(__dirname, '/views', 'app.html'))
-    } else{
-        //else false log invalid login and send to login failed
-        console.log("invalid login")
-        res.sendFile(path.join(__dirname, '/views', 'login_failed.html'))
-    }
-})
-
-app.get('/register', (request, response)=>{
-    response.sendFile(path.join(__dirname, '/views', 'register.html'))
-})
-
-// adding users controller
-app.post('/register', async (req, res)=>{
-    if(await users.addUser(req.body.username, req.body.password, req.body.firstname, req.body.surname)){
-      res.sendFile(path.join(__dirname, '/views', 'login.html'))  
-    } else{
-        //else false send to registration failed
-        res.sendFile(path.join(__dirname, '/views', 'registration_failed.html'))
-    }
-})
-
-app.get('/logout', checkLoggedIn, (request, response)=>{
-    response.sendFile(path.join(__dirname, '/views', 'logout.html'))
-})
-
-app.post('/logout', (req, res)=>{
-    req.session.destroy()
-    res.redirect('/')
-})
 
 app.post('/getposts/:id/like', async(req, res) => {
     try{
