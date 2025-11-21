@@ -6,6 +6,7 @@ fetch('/getposts')
     .then(response=>response.json())
     .then(processData)
 
+    // This function displays all the posts currently stored and adds a like button and like counter to each post
 function processData(data){
     //console.log(data)
     if(recentPosts){
@@ -44,6 +45,7 @@ function processData(data){
     
 }
 
+// This function fetches a back end route that stores a new like and this function outputs the like and also outputs the author is not allowed to like the post
 async function likePost(id){
     const res = await fetch(`/getposts/${id}/like`, {method: 'POST'})
     const data = await res.json()

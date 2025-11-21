@@ -160,9 +160,19 @@ app.get("/users", adminOnly, async (req, res)=>{
     res.json(getUsers)
 })
 
-app.get("/users/:id/posts", adminOnly, async(req, res)=>{
-    const usersPosts = await posts.postData.find({author: req.params.id})
-    res.json(usersPosts)
+app.get("/users/:username/posts", adminOnly, async(req, res)=>{
+    try{
+        const username = req.params.username
+        const user = await users.userData.findOne({username: username})
+        if(!user){
+            return res.json({message: "user not found"})
+        }
+        const usersPosts = await posts.postData.find({user: user.username})
+        res.json(usersPosts)
+    }catch(err){
+        console.log('issue with: ', err)
+        res.json([])
+    }    
 })
 
 // deleting users and their posts
@@ -172,6 +182,7 @@ app.delete("/users/:id", adminOnly, async (req, res)=>{
         if(!user){
             return res.json({message: "user not found"})
         }
+        // grabbing data from mongo database
         await posts.postData.deleteMany({user: user.username})
         await users.userData.findByIdAndDelete(req.params.id)
         
