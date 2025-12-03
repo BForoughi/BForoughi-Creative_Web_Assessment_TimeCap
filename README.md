@@ -44,6 +44,7 @@
 
 ### UI/IX design considerations
 - All of my designs have been created using the software Figma:
+<br>
 Home Page:
 <br>
 <img width="706" height="601" alt="image" src="https://github.com/user-attachments/assets/fd30e18c-cd5e-447d-ae43-b3bca95eb9c9" />
@@ -56,3 +57,20 @@ Camera Page:
 <br>
 <img width="723" height="626" alt="image" src="https://github.com/user-attachments/assets/2a1f3611-e333-4089-9f5b-e2a0818c50fb" />
 <br>
+- I designed the interface to be sleek and minimalist, prioritising clarity and intuitive navigation. While primary features reside on dedicated pages, I integrated 'quick-access' widgets for high-frequency actions such as, locking capsules or uploading photos directly onto the Home and Camera screens. This modular, widget-based approach minimises the number of clicks required to perform tasks and clearly separates content, making the application accessible to users of all technical skill levels.
+
+### Major features and MVP
+- The core functionality of the app revolves around two main components: capturing or uploading photos and securing them within a time-locked 'capsule' album. Beyond this MVP, planned enhancements include customisable lock timers, Polaroid-style image formatting, and the ability to download or print unlocked albums. Additionally, social features will allow users to annotate albums and share them with friends and family via an in-app messaging system.
+
+### Anticipated challenges and technical obstacles
+- The immediate technical challenge is the integration of the photo uploading and camera APIs. I plan to use a Cloud-Native Media Management service, such as the one offering a free tier of 25GB of managed storage and a robust JavaScript API, but I anticipate that the implementation of these services will be the most demanding part of the development.
+- The messaging feature will be another large task to tackle for which I'll look to use another API such as SendBird or Stream Chat.
+- While the user account and database functionalities (MongoDB read/write) are established, my primary concern is the integration of the existing Node.js backend with React, as I have no prior experience with the frontend library. I anticipate that setting up this client-server communication will be the most demanding part of the development.
+- I also don't know if it will be possible to format my images into polariods so that requires more research.
+
+### Experiments you have undertaken with techniques and API's
+- As of this moment I have not done any experiments with API's as I have been focused on desging my app and learning the basics of React, however, please refer to the KEY TECHNIQUES section above.
+
+### Learning points from your independent study
+- The main learning point has been how powerful and scalable React is and I can't wait to get properly stuck in with my project development. However, the error messages often point to a generic location or a symptom rather than the root cause, requiring me to adopt new strategies to diagnose issues related to state and component rendering.
+- I have also learnt that express backends can get very messy and complex but I hope that with my prior knowledge from the Social app should be very useful and streamline the process of creating my app.
