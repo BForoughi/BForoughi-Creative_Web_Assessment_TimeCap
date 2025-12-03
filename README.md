@@ -29,9 +29,22 @@
 - forgotten.
 - The album feature is great for people who love documenting their lives, as it allows them to keep all media in one location.
    
-## Key Techniques
+## Key Techniques For submission two
 - The main techniques involve the use of GET, POST, and fetch requests with express js and mongoose for connecting to a MongoDB cluster.
 - However, the key features added are an admin page that only gets added to the navbar when the user has been verified as an admin. On this page, the admin can view both users and their posts and delete either specific posts or the user and all their posts.
 - The app page also now features like buttons on all the posts with a like counter; the like button, however, is only allowed for non-authors of the post. When the author tries to like their own post, a message pops up saying that liking is not permitted to the author and the like is not logged into the database.
 - The system also now features a profile page where the user can change their name, and their change gets updated and saved into MongoDB and also displayed on the app and profile pages.
 - Also, the login page is served with ejs - Dave and I spoke, and he was happy for me to just serve the login page as we discussed that I want to learn and use React for my front-end.
+
+### The proposed technology stack and application architecture 
+- My proposed stack that will be implemented into my app is the MERN stack (MongoDB, Express, React, and Node.js).
+- I selected this stack because it is the industry standard for modern web development. By mirroring a real-world environment, this project allows me to build the practical skills necessary for a professional role.
+- Mern has grown to be very popular as the Full-Stack of JavaScript with Express and Node as the backend seamlessly intergrates with the JavaScript/JSON data formatted MongoDB that eliminates the need to introduce more languages such as SQL.
+- React remains the most popular frontend libary due to its component-based architecture, flexibility, large community, and massive ecosystem. As well as its ability to be highly scalable and still keep its high performance.
+
+### UI/IX design considerations
+- All of my designs have been created using the software Figma:
+Home Page:
+<img width="1439" height="975" alt="image" src="https://github.com/user-attachments/assets/9d6a38e6-7961-4623-8b56-8a10df6c27db" />
+Time Capsule Album Page:
+<img width="693" height="631" alt="image" src="https://github.com/user-attachments/assets/a7835737-4101-4b5d-ab14-1f68307baf1d" />
