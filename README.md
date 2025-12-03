@@ -19,15 +19,15 @@
 - The app needs to store dates and times to accurately unlock the media.
 - App may also include locational data of where the media was taken.
 
-  ### How the app may present a novel experience
-  - I think the main novel experience is not having your content immediately on show, which I think will attract more genuine content and not fake media for instant popularity or gratification.
-  - I also feel that this idea is a perfect blend of emotion and technology. Allowing for nostalgic memories, reliving times with loved ones, and for self-reflection on where your life has been and is going. And it makes users think about future selves.
+### How the app may present a novel experience
+- I think the main novel experience is not having your content immediately on show, which I think will attract more genuine content and not fake media for instant popularity or gratification.
+- I also feel that this idea is a perfect blend of emotion and technology. Allowing for nostalgic memories, reliving times with loved ones, and for self-reflection on where your life has been and is going. And it makes users think about future selves.
  
-    ### Target Audience
-    - I think the main big one is for people who enjoy reminiscing, who love the nostalgic feeling.
-    - People with bad memories - this app not only shows them a visualisation of memories it also allows time for people to be surprised when they get reminded of trips and memories they have perhaps
-    - forgotten.
-    - The album feature is great for people who love documenting their lives, as it allows them to keep all media in one location.
+### Target Audience
+- I think the main big one is for people who enjoy reminiscing, who love the nostalgic feeling.
+- People with bad memories - this app not only shows them a visualisation of memories it also allows time for people to be surprised when they get reminded of trips and memories they have perhaps
+- forgotten.
+- The album feature is great for people who love documenting their lives, as it allows them to keep all media in one location.
    
 ## Key Techniques
 - The main techniques involve the use of GET, POST, and fetch requests with express js and mongoose for connecting to a MongoDB cluster.
