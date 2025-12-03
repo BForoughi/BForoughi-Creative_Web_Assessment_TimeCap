@@ -45,6 +45,11 @@
 ### UI/IX design considerations
 - All of my designs have been created using the software Figma:
 Home Page:
-<img width="1439" height="975" alt="image" src="https://github.com/user-attachments/assets/9d6a38e6-7961-4623-8b56-8a10df6c27db" />
+
+<img width="706" height="601" alt="image" src="https://github.com/user-attachments/assets/fd30e18c-cd5e-447d-ae43-b3bca95eb9c9" />
 Time Capsule Album Page:
+
 <img width="693" height="631" alt="image" src="https://github.com/user-attachments/assets/a7835737-4101-4b5d-ab14-1f68307baf1d" />
+Camera Page:
+
+<img width="723" height="626" alt="image" src="https://github.com/user-attachments/assets/2a1f3611-e333-4089-9f5b-e2a0818c50fb" />
