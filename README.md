@@ -55,7 +55,7 @@ Time Capsule Album Page:
 <br>
 Camera Page:
 <br>
-<img width="723" height="626" alt="image" src="https://github.com/user-attachments/assets/2a1f3611-e333-4089-9f5b-e2a0818c50fb" />
+<img width="879" height="793" alt="image" src="https://github.com/user-attachments/assets/2633bef9-23d5-48af-8d91-e95dc1939ced" />
 <br>
 - I designed the interface to be sleek and minimalist, prioritising clarity and intuitive navigation. While primary features reside on dedicated pages, I integrated 'quick-access' widgets for high-frequency actions such as, locking capsules or uploading photos directly onto the Home and Camera screens. This modular, widget-based approach minimises the number of clicks required to perform tasks and clearly separates content, making the application accessible to users of all technical skill levels.
 
