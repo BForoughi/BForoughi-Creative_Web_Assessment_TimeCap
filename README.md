@@ -49,13 +49,17 @@ Home Page:
 <br>
 <img width="706" height="601" alt="image" src="https://github.com/user-attachments/assets/fd30e18c-cd5e-447d-ae43-b3bca95eb9c9" />
 <br>
+Messages Page:
+<br>
+<img width="712" height="586" alt="image" src="https://github.com/user-attachments/assets/822b809f-e5f4-4d7f-bb00-ccb13c9a3873" />
+<br>
 Time Capsule Album Page:
 <br>
 <img width="693" height="631" alt="image" src="https://github.com/user-attachments/assets/a7835737-4101-4b5d-ab14-1f68307baf1d" />
 <br>
 Camera Page:
 <br>
-<img width="879" height="793" alt="image" src="https://github.com/user-attachments/assets/2633bef9-23d5-48af-8d91-e95dc1939ced" />
+<img width="740" height="674" alt="image" src="https://github.com/user-attachments/assets/2ce7e3ee-8759-4651-805d-2ab7cb3aeecb" />
 <br>
 - I designed the interface to be sleek and minimalist, prioritising clarity and intuitive navigation. While primary features reside on dedicated pages, I integrated 'quick-access' widgets for high-frequency actions such as, locking capsules or uploading photos directly onto the Home and Camera screens. This modular, widget-based approach minimises the number of clicks required to perform tasks and clearly separates content, making the application accessible to users of all technical skill levels.
 
