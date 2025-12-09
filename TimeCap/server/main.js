@@ -1,13 +1,12 @@
 // -------Requiring node modules-------
-const dotenv = require("dotenv");
-dotenv.config();
-const express = require('express');
+import 'dotenv/config';
+import express from 'express'
 const app = express();
-const path = require('path');
-const sessions = require('express-session');
-const cookieParser = require('cookie-parser');
-const mongoose=require('mongoose');
-const MongoStore = require("connect-mongo");
+import * as path from 'path'
+import sessions from 'express-session'
+import cookieParser from 'cookie-parser';
+import mongoose from 'mongoose';
+import MongoStore from 'connect-mongo';
 
 // -------MongoDB-------
 // const mongoPassword = process.env.MONGODB_PASSWORD

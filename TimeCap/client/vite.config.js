@@ -8,7 +8,7 @@ export default defineConfig({
     // This will redirect any requests to yourwebsite.com/api to the Express.js server
       "/api": {
       // The port you use here should match the "PORT" variable in your Express.js server
-      target: "http://localhost:4000",
+      target: "http://localhost:3000",
       changeOrigin: true,
       },
     },
