@@ -29,8 +29,6 @@ function TestConnection() {
     <div style={{ padding: '20px', border: '1px solid #ccc' }}>
       <h2>Connection Test Status</h2>
       <p>{message}</p>
-      {/* Ensure your Express server has a simple route like:
-      // app.get('/api/test', (req, res) => res.send('Connected!')); */}
     </div>
   );
 }
