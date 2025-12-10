@@ -51,6 +51,27 @@ app.use(sessions({
     saveUninitialized: false
 }))
 
+// -------- REGISTER ------------
+app.post('/api/login', async (req, res)=>{
+    // sends the username and password from the form and passes it into the checkUser function
+    const username = req.body.username
+    const password = req.body.password
+    const firstname = req.body.firstname
+    const surname = req.body.surname
+    const user = await users.addUser(req.body.username, req.body.password, req.body.firstname, req.body.surname)
+    if(user){
+        // successful register
+        return res.status(200).json({
+            success: true, user: {username: user.username, firstname: user.firstname, surname: user.surname}
+        })
+    } else{
+        //else false log invalid login and send to login failed
+        return res.status(401).json({
+            success: false, message: "Username is already taken"
+        })
+    }
+})
+
 // -------- LOGIN ------------
 app.post('/api/login', async (req, res)=>{
     // sends the username and password from the form and passes it into the checkUser function
@@ -69,3 +90,4 @@ app.post('/api/login', async (req, res)=>{
         })
     }
 })
+

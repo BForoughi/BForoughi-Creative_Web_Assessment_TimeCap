@@ -8,7 +8,8 @@ function LoginForm(){
     const [password, setPassword] = useState("")
     const [error, setError] = useState(null)
 
-    // Handlers to update states whenever the input changes
+    const navigate = useNavigate();
+    // Handler to update states whenever the input changes
     const handleSubmit = async (e) =>{
         e.preventDefault() // prevents the browser reloading the page
         setError(null)
@@ -27,7 +28,7 @@ function LoginForm(){
                 navigate('/TimeCap')
             }
         } catch(err){
-            let errorMessage = 'login failed'
+            let errorMessage = 'login failed, please check your username or password'
             if(err.res.data.message){
                 errorMessage = err.res.data.message
             }
