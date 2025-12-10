@@ -25,3 +25,24 @@ app.listen(PORT, ()=>{
 app.use(express.json())
 
 //app.get('/api/test', (req, res) => res.send('Connected!'))
+
+// ---------sessions----------
+// Time variables
+const threeMins = 3*60*1000;
+const oneHour = 1*60*60*1000;
+app.use(sessions({
+    secret:process.env.mySessionSecret,
+    store: MongoStore.create({
+      mongoUrl: connectionString,
+      ttl: 60 * 60
+    }),
+    cookie: {
+        secure: false, // allows for cookies to be sent over http
+        httpOnly: true, // this means js cannot access the cookie, when using sessions you always want this as it denies anyone trying to steal the cookie
+        // sameSite allows the cookie to be sent over sites
+        sameSite: "lax", // lax allows it to be via GET requests
+        maxAge: oneHour
+    },
+    resave: false,
+    saveUninitialized: false
+}))
