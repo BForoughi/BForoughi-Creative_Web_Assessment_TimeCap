@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 function TestConnection() {
   const [message, setMessage] = useState('Checking connection...');
@@ -26,10 +26,11 @@ function TestConnection() {
   }, []); // The empty array ensures this runs only once
 
   return (
-    <div style={{ padding: '20px', border: '1px solid #ccc' }}>
-      <h2>Connection Test Status</h2>
-      <p>{message}</p>
-    </div>
+      <div style={{ padding: '20px', border: '1px solid #ccc' }}>
+        <h2>Connection Test Status</h2>
+        <p>{message}</p>
+      </div>
+  
   );
 }
 

@@ -8,6 +8,10 @@ import cookieParser from 'cookie-parser';
 import mongoose from 'mongoose';
 import MongoStore from 'connect-mongo';
 
+// -------requiring the module exports-------
+//const users = require('./models/users');
+import * as users from './models/userModel.js'
+
 // -------MongoDB-------
 const mongoPassword = process.env.MONGODB_PASSWORD
 const mongoUsername = process.env.MONGODB_USERNAME
@@ -24,7 +28,7 @@ app.listen(PORT, ()=>{
 
 app.use(express.json())
 
-//app.get('/api/test', (req, res) => res.send('Connected!'))
+app.get('/api/test', (req, res) => res.send('Connected!'))
 
 // ---------sessions----------
 // Time variables
@@ -46,3 +50,22 @@ app.use(sessions({
     resave: false,
     saveUninitialized: false
 }))
+
+// -------- LOGIN ------------
+app.post('/api/login', async (req, res)=>{
+    // sends the username and password from the form and passes it into the checkUser function
+    const username = req.body.username
+    const password = req.body.password
+    const user = await users.checkUser(username, password)
+    if(user){
+        // successful login
+        return res.status(200).json({
+            success: true, user: {username: user.username, firstname: user.firstname}
+        })
+    } else{
+        //else false log invalid login and send to login failed
+        return res.status(401).json({
+            success: false, message: "Invalid username or password"
+        })
+    }
+})

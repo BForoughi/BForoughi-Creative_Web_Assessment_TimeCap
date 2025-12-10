@@ -1,4 +1,3 @@
-import React from "react";
 import {Navbar, Nav, Container} from 'react-bootstrap'
 import {Link, NavLink} from 'react-router-dom'
 
@@ -13,7 +12,8 @@ function AppNavbar(){
                     <Nav>
                         <Container className="container-fluid">
                             <Nav.Link as={NavLink} to="/" end>Home</Nav.Link>
-                            <Nav.Link as={NavLink} to="/TestConnection.jsx">Test</Nav.Link>
+                            <Nav.Link as={NavLink} to="/TestConnection">Test</Nav.Link>
+                            <Nav.Link as={NavLink} to="/LoginForm">Login</Nav.Link>
                         </Container>
                     </Nav>
                 </Navbar.Collapse>
