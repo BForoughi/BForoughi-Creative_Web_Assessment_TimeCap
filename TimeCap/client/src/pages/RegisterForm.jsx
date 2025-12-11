@@ -19,12 +19,8 @@ function RegisterForm(){
 
         // register api
         try{
+            const data = { username, password, firstname, surname}
             const res = await axios.post('/api/register', data, {
-                username: username,
-                password: password,
-                firstname: firstname,
-                surname: surname
-            },{
                 withCredentials: true
             })
 

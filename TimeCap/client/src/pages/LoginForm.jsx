@@ -15,11 +15,9 @@ function LoginForm(){
         setError(null)
         // login api
         try{
+            const data = {username, password}
             // sending login data to backend
             const res = await axios.post('/api/login', data, {
-                username: username,
-                password: password
-            }, {
                 withCredentials: true
             })
 
@@ -57,9 +55,8 @@ function LoginForm(){
                     placeholder="Password"
                 />
 
-                {error && <p style={{color: 'red'}}>{error}</p>}
-
                 <button type="submit">Login</button>
+                {error && <p style={{color: 'red'}}>{error}</p>}
             </form>
         </div>
     )

@@ -30,12 +30,7 @@ app.use(cors({
 }))
 
 app.use(express.json())
-
-app.listen(PORT, ()=>{
-    console.log(`Server running at http://localhost:${PORT}`)
-})
-
-app.get('/api/test', (req, res) => res.send('Connected!'))
+app.use(cookieParser());
 
 // ---------sessions----------
 // Time variables
@@ -50,12 +45,18 @@ app.use(sessions({
     cookie: {
         secure: false, 
         httpOnly: true, 
-        sameSite: "none", 
+        sameSite: "lax", 
         maxAge: oneHour
     },
     resave: false,
     saveUninitialized: false
 }))
+
+app.listen(PORT, ()=>{
+    console.log(`Server running at http://localhost:${PORT}`)
+})
+
+app.get('/api/test', (req, res) => res.send('Connected!'))
 
 // -------- REGISTER ------------
 app.post('/api/register', async (req, res)=>{
@@ -63,7 +64,7 @@ app.post('/api/register', async (req, res)=>{
     const { username, password, firstname, surname } = req.body;
     const user = await users.addUser(username, password, firstname, surname)
     if(user){
-        req.session.username = user.username
+        req.session.username = username
         // successful register
         return res.status(200).json({
             success: true, user: {username: user.username, firstname: user.firstname, surname: user.surname}
