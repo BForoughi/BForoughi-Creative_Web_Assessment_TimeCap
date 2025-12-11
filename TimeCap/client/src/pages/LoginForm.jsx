@@ -22,17 +22,17 @@ function LoginForm(){
             })
 
             // Handling the response to my data post
-            if(res.data.success){
+            if((res && res.data && res.data.success)){
                 // add a token
                 console.log('login success')
                 navigate('/TimeCap')
             }
+           
         } catch(err){
-            let errorMessage = 'login failed, please check your username or password'
-            if(err.res.data.message){
-                errorMessage = err.res.data.message
-            }
-            console.log(err)
+            const errorMessage = err.response
+                ? err.response.data.message
+                : 'Network or server connection error'
+            //console.log(errorMessage)
             setError(errorMessage)
         } 
     }

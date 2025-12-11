@@ -33,11 +33,9 @@ function RegisterForm(){
                 navigate('/TimeCap')
             }
         } catch(err){
-            let errorMessage = 'username already used'
-            if(err.res.data.message){
-                errorMessage = err.res.data.message
-            }
-            console.log("error with", err)
+            const errorMessage = err.response
+                ? err.response.data.message
+                : 'Network or server connection error'
             setError(errorMessage)
         }
     }
