@@ -52,7 +52,7 @@ app.use(sessions({
 }))
 
 // -------- REGISTER ------------
-app.post('/api/login', async (req, res)=>{
+app.post('/api/register', async (req, res)=>{
     // sends the username and password from the form and passes it into the checkUser function
     const username = req.body.username
     const password = req.body.password
