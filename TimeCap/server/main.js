@@ -1,12 +1,12 @@
 // -------Requiring node modules-------
 import 'dotenv/config';
 import express from 'express'
-const app = express();
 import * as path from 'path'
 import sessions from 'express-session'
 import cookieParser from 'cookie-parser';
 import mongoose from 'mongoose';
 import MongoStore from 'connect-mongo';
+import cors from 'cors'
 
 // -------requiring the module exports-------
 //const users = require('./models/users');
@@ -22,11 +22,18 @@ mongoose.connect(connectionString)
 
 // ----------server controller---------
 const PORT = process.env.PORT || 4000
+const app = express()
+
+app.use(cors({
+    origin: 'http://localhost:5173',
+    credentials: true
+}))
+
+app.use(express.json())
+
 app.listen(PORT, ()=>{
     console.log(`Server running at http://localhost:${PORT}`)
 })
-
-app.use(express.json())
 
 app.get('/api/test', (req, res) => res.send('Connected!'))
 
