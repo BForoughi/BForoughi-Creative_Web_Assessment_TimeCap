@@ -48,10 +48,9 @@ app.use(sessions({
       ttl: 60 * 60
     }),
     cookie: {
-        secure: false, // allows for cookies to be sent over http
-        httpOnly: true, // this means js cannot access the cookie, when using sessions you always want this as it denies anyone trying to steal the cookie
-        // sameSite allows the cookie to be sent over sites
-        sameSite: "lax", // lax allows it to be via GET requests
+        secure: false, 
+        httpOnly: true, 
+        sameSite: "none", 
         maxAge: oneHour
     },
     resave: false,
@@ -61,12 +60,10 @@ app.use(sessions({
 // -------- REGISTER ------------
 app.post('/api/register', async (req, res)=>{
     // sends the username and password from the form and passes it into the checkUser function
-    const username = req.body.username
-    const password = req.body.password
-    const firstname = req.body.firstname
-    const surname = req.body.surname
-    const user = await users.addUser(req.body.username, req.body.password, req.body.firstname, req.body.surname)
+    const { username, password, firstname, surname } = req.body;
+    const user = await users.addUser(username, password, firstname, surname)
     if(user){
+        req.session.username = user.username
         // successful register
         return res.status(200).json({
             success: true, user: {username: user.username, firstname: user.firstname, surname: user.surname}
@@ -82,10 +79,10 @@ app.post('/api/register', async (req, res)=>{
 // -------- LOGIN ------------
 app.post('/api/login', async (req, res)=>{
     // sends the username and password from the form and passes it into the checkUser function
-    const username = req.body.username
-    const password = req.body.password
+    const { username, password } = req.body 
     const user = await users.checkUser(username, password)
     if(user){
+        req.session.username = user.username
         // successful login
         return res.status(200).json({
             success: true, user: {username: user.username, firstname: user.firstname}

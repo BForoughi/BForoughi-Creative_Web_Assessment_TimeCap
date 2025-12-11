@@ -16,9 +16,11 @@ function LoginForm(){
         // login api
         try{
             // sending login data to backend
-            const res = await axios.post('/api/login', {
+            const res = await axios.post('/api/login', data, {
                 username: username,
                 password: password
+            }, {
+                withCredentials: true
             })
 
             // Handling the response to my data post
