@@ -5,6 +5,7 @@ import TestConnection from "./pages/TestConnection"
 import LoginForm from "./pages/LoginForm"
 import TimeCap from "./pages/TimeCap"
 import RegisterForm from "./pages/RegisterForm"
+import ProtectedRoute from "./components/ProtectedRoute"
 
 function App() {
   return (
@@ -15,7 +16,12 @@ function App() {
         <Route path="/TestConnection" element={<TestConnection />} />
         <Route path="/LoginForm" element={<LoginForm />} />
         <Route path="/RegisterForm" element={<RegisterForm />} />
-        <Route path="/TimeCap" element={<TimeCap />} />
+        <Route path="/TimeCap" element={
+          <ProtectedRoute>
+            <TimeCap />
+          </ProtectedRoute>
+          } 
+        />
       </Routes>
     </BrowserRouter>
     

@@ -96,3 +96,13 @@ app.post('/api/login', async (req, res)=>{
     }
 })
 
+// session checker router
+app.get('/api/auth/check', (req, res) => {
+    if(req.session.username){
+        return res.status(200).json({
+            loggedIn: true, user: req.session.username
+        })
+    } else{
+        return res.status(401).json({ loggedIn: false })
+    }
+})
