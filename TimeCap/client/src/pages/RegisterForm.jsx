@@ -41,7 +41,7 @@ function RegisterForm(){
         <div className="register-container">
             <Container className="d-flex justify-content-center">
                 <h2>Register</h2>
-                <Button variant="light" onClick={() => navigate('/LoginForm')}>Sign In</Button>
+                <Button variant="light" onClick={() => navigate('/')}>Sign In</Button>
             </Container>
             
             <form onSubmit={handleSubmit}>

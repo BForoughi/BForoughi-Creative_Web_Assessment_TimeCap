@@ -6,23 +6,26 @@ import LoginForm from "./pages/LoginForm"
 import TimeCap from "./pages/TimeCap"
 import RegisterForm from "./pages/RegisterForm"
 import ProtectedRoute from "./components/ProtectedRoute"
+import { AuthProvider } from "./context/AuthContext"
 
 function App() {
   return (
     <BrowserRouter>
-    <AppNavbar />
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/TestConnection" element={<TestConnection />} />
-        <Route path="/LoginForm" element={<LoginForm />} />
-        <Route path="/RegisterForm" element={<RegisterForm />} />
-        <Route path="/TimeCap" element={
-          <ProtectedRoute>
-            <TimeCap />
-          </ProtectedRoute>
-          } 
-        />
-      </Routes>
+      <AuthProvider>
+        <AppNavbar />
+        <Routes>
+          <Route path="/" element={<LoginForm />} />
+          <Route path="/TestConnection" element={<TestConnection />} />
+          
+          <Route path="/RegisterForm" element={<RegisterForm />} />
+          <Route path="/TimeCap" element={
+            <ProtectedRoute>
+              <TimeCap />
+            </ProtectedRoute>
+            } 
+          />
+        </Routes>
+      </AuthProvider>
     </BrowserRouter>
     
   

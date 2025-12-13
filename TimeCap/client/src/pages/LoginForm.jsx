@@ -1,6 +1,9 @@
 import { useState } from "react";
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom'
+import { useAuth } from "../context/AuthContext";
+
+
 
 function LoginForm(){
     // Input fields
@@ -9,6 +12,8 @@ function LoginForm(){
     const [error, setError] = useState(null)
 
     const navigate = useNavigate();
+    const { setUser } = useAuth()
+    
     // Handler to update states whenever the input changes
     const handleSubmit = async (e) =>{
         e.preventDefault() // prevents the browser reloading the page
@@ -22,9 +27,10 @@ function LoginForm(){
             })
 
             // Handling the response to my data post
-            if((res && res.data && res.data.success)){
+            if((res.data.success)){
                 // add a token
                 console.log('login success')
+                setUser(res.data.user.username)
                 navigate('/TimeCap')
             }
            
