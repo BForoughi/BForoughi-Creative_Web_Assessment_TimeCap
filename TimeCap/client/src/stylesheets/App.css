@@ -1,3 +1,20 @@
 body {
   text-align: center;
 }
+
+.header-card{
+  width: 30%;
+}
+.card-header{
+  display: flex;
+  justify-content: space-between;
+  
+}
+
+#card-purple{
+  background-color: #8c34ff;
+}
+
+#card-pink{
+  background-color: #ff14d8;
+}
