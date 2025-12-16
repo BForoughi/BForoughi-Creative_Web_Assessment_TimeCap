@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from 'axios';
+import axios from 'axios'; // axios is something I found from chatgpt as a better alternative to fetch as it ads automation
 import {useNavigate} from 'react-router-dom'
 import { useAuth } from "../context/AuthContext";
 

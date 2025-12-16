@@ -9,7 +9,6 @@ import MongoStore from 'connect-mongo';
 import cors from 'cors'
 
 // -------requiring the module exports-------
-//const users = require('./models/users');
 import * as users from './models/userModel.js'
 
 // -------MongoDB-------

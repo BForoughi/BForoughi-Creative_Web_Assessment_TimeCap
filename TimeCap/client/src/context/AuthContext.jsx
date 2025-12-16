@@ -7,6 +7,7 @@ export function AuthProvider ({ children }){
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(true)
 
+    // use effect runs after a render
     useEffect(()=> {
         const checkSession = async () => {
             try{

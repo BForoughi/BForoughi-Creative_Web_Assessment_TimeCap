@@ -1,3 +1,5 @@
+// This is taken from chat gpt and is only to make sure my front and back ends are connected
+
 import { useState, useEffect } from 'react';
 
 function TestConnection() {
