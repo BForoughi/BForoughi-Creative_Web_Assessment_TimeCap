@@ -4,6 +4,7 @@ import HeaderCard from '../components/HeaderCard'
 function TimeCap(){
     return(
         <>
+        {/* USE CLOUDINARYS UPLOAD WIDGET FOR YOU IMAGE UPLOADS */}
             <h1>TimeCap</h1>
 
             <HeaderCard id="card-purple" title="Locked Capsules">

@@ -7,14 +7,21 @@ import cookieParser from 'cookie-parser';
 import mongoose from 'mongoose';
 import MongoStore from 'connect-mongo';
 import cors from 'cors'
+import { v2 as cloudinary } from 'cloudinary';
 
 // -------requiring the module exports-------
 import * as users from './models/userModel.js'
 
+// .env variables
 // -------MongoDB-------
 const mongoPassword = process.env.MONGODB_PASSWORD
 const mongoUsername = process.env.MONGODB_USERNAME
 const mongoAppName = process.env.MONGODB_MYAPPNAME
+
+// -------Cloudinary-------
+const cloudName = process.env.CLOUND_NAME
+const cloudKey = process.env.CLOUDINARY_API_KEY
+const cloudSecret = process.env.CLOUDINARY_SECRET
 
 const connectionString = `mongodb+srv://${mongoUsername}:${mongoPassword}@timecap.jjo4ept.mongodb.net/${mongoAppName}?retryWrites=true&w=majority`
 mongoose.connect(connectionString)
@@ -53,7 +60,20 @@ app.use(sessions({
 
 app.listen(PORT, ()=>{
     console.log(`Server running at http://localhost:${PORT}`)
-})
+});
+
+// ----------CLOUDINARY API----------- https://cloudinary.com/
+// code taken and adapted from cloudinary getting started page 
+(async function() {
+    // Configuration
+    cloudinary.config({
+        cloud_name: cloudName,
+        api_key: cloudKey,
+        api_secret: cloudSecret
+    })
+})();
+
+// ----------ROUTES--------- 
 
 app.get('/api/test', (req, res) => res.send('Connected!'))
 
