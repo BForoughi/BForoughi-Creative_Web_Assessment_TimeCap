@@ -29,7 +29,8 @@ function UploadButton(){
             (error, result) => {
                 if (!error && result.event === "success") {
                     const imageUrl = result.info.secure_url
-                    axios.post('/api/photos', { imageUrl }, { withCredentials: true });
+                    const cloudinaryId = result.info.public_id
+                    axios.post('/api/photos', { imageUrl, cloudinaryId }, { withCredentials: true });
                 }
             }
         )
