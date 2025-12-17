@@ -1,4 +1,5 @@
 // Cloudinary upload widget with chatgpt used to convert their docs code into react function
+import axios from "axios";
 
 function UploadButton(){
     const openWidget = () =>{

@@ -11,6 +11,7 @@ import { v2 as cloudinary } from 'cloudinary';
 
 // -------requiring the module exports-------
 import * as users from './models/userModel.js'
+import Photo from "./models/photosModel.js"
 
 // .env variables
 // -------MongoDB-------
@@ -73,6 +74,15 @@ app.listen(PORT, ()=>{
     })
 })();
 
+// storing the user's id
+const storeUserId = (req, res, next) => {
+    if(req.session && req.session.userId){
+        req.user = {_id: req.session.userId}
+        return next()
+    }
+    return res.status(401).json({message: 'No user ID'})
+}
+
 // ----------ROUTES--------- 
 
 app.get('/api/test', (req, res) => res.send('Connected!'))
@@ -83,6 +93,7 @@ app.post('/api/register', async (req, res)=>{
     const { username, password, firstname, surname } = req.body;
     const user = await users.addUser(username, password, firstname, surname)
     if(user){
+        req.session.userId = user._id;
         req.session.username = username
         // successful register
         return res.status(200).json({
@@ -102,6 +113,7 @@ app.post('/api/login', async (req, res)=>{
     const { username, password } = req.body 
     const user = await users.checkUser(username, password)
     if(user){
+        req.session.userId = user._id;
         req.session.username = user.username
         // successful login
         return res.status(200).json({
@@ -123,5 +135,29 @@ app.get('/api/auth/check', (req, res) => {
         })
     } else{
         return res.status(401).json({ loggedIn: false })
+    }
+})
+
+// storing user's uploaded photos urls from cloudinary upload widget into mongo db 
+app.post('/api/photos', storeUserId, async (req, res) => {
+    const {imageUrl, cloudinaryId} = req.body
+
+    if(!imageUrl || !cloudinaryId){
+        return res.status(400).json({ message: 'Image URL and Cloudinary ID are required' })
+    }
+
+    // basically the same code as my add user function in models/userModel.js
+    try{
+        const newPhoto = new Photo({
+            userId: req.user._id,
+            imageUrl,
+            cloudinaryId
+        })
+
+        await newPhoto.save()
+        res.status(201).json({ message: 'Photo saved successfully', photo: newPhoto });
+    } catch(err){
+        console.error('Error saving photo:', err);
+        res.status(500).json({ message: 'Server error' });
     }
 })
