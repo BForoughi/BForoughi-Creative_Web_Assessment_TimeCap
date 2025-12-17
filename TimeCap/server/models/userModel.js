@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt'
+
 const {Schema, model} = mongoose
 const saltRounds = 10
 

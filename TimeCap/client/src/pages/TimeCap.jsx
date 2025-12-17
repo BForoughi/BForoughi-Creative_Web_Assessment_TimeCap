@@ -1,5 +1,6 @@
 import '../stylesheets/App.css'
 import HeaderCard from '../components/HeaderCard'
+import UploadButton from '../components/UploadWidget'
 
 function TimeCap(){
     return(
@@ -22,6 +23,8 @@ function TimeCap(){
                 </div>
                 <h1>2</h1>
             </HeaderCard>
+
+            <UploadButton></UploadButton>
         </>
     )
 }
