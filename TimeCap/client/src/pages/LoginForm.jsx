@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from 'axios'; // axios is something I found from chatgpt as a better alternative to fetch as it ads automation
-import {useNavigate} from 'react-router-dom'
+import {useNavigate, useLocation} from 'react-router-dom'
 import { useAuth } from "../context/AuthContext";
 
 
@@ -13,6 +13,9 @@ function LoginForm(){
 
     const navigate = useNavigate();
     const { setUser } = useAuth()
+
+    const location = useLocation()
+    const message = location.state?.message // recieved from the logout redirect
     
     // Handler to update states whenever the input changes
     const handleSubmit = async (e) =>{
@@ -47,6 +50,7 @@ function LoginForm(){
     return(
         <div className="login-container">
             <h2>Sign In</h2>
+            {message && <p>{message}</p>}
             <form onSubmit={handleSubmit}>
                 <input 
                     type="text" 

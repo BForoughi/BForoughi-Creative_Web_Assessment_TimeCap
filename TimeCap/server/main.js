@@ -138,6 +138,22 @@ app.get('/api/auth/check', (req, res) => {
     }
 })
 
+// Logout
+app.post("/api/logout", (req, res) =>{
+    try{
+        if(!req.session){
+            return res.status(400).json({ success: false, message: "session not found" })
+        }
+        
+        req.session.destroy()
+        res.clearCookie("connect.sid") // clearing the session cookie
+        return res.status(200).json({ success: true })
+    } catch(err){
+        console.error("Problem with logout route", err)
+        res.status(500).json({ success: false, message: "Server error" })
+    }
+})
+
 // The below two routes was created by chatgpt and I, I used it to change my original code (adapted from cloudinary getting started code). I added the prompts to stop uploads
 // to cloudinary and mongo if the user clicks "X" on the upload widget and to upload to cloudinary and mongo DB if the user clicks "done" on the widget. Note the original code
 // was similar to what I have previously done with creating a new user.

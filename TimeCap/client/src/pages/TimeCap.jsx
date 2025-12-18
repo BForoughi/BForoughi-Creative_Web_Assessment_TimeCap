@@ -1,6 +1,7 @@
 import '../stylesheets/App.css'
 import HeaderCard from '../components/HeaderCard'
 import UploadButton from '../components/UploadWidget'
+import LogoutButton from '../components/Logout'
 
 function TimeCap(){
     return(
@@ -25,6 +26,9 @@ function TimeCap(){
             </HeaderCard>
 
             <UploadButton></UploadButton>
+            <br />
+
+            <LogoutButton></LogoutButton>
         </>
     )
 }
