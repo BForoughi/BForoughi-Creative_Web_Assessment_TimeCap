@@ -138,26 +138,56 @@ app.get('/api/auth/check', (req, res) => {
     }
 })
 
+// The below two routes was created by chatgpt and I, I used it to change my original code (adapted from cloudinary getting started code). I added the prompts to stop uploads
+// to cloudinary and mongo if the user clicks "X" on the upload widget and to upload to cloudinary and mongo DB if the user clicks "done" on the widget. Note the original code
+// was similar to what I have previously done with creating a new user.
+
 // storing user's uploaded photos urls from cloudinary upload widget into mongo db 
-app.post('/api/photos', storeUserId, async (req, res) => {
-    const {imageUrl, cloudinaryId} = req.body
+// SAVE CONFIRMED UPLOADS
+app.post("/api/photos", storeUserId, async (req, res) => {
+    const { photos } = req.body;
 
-    if(!imageUrl || !cloudinaryId){
-        return res.status(400).json({ message: 'Image URL and Cloudinary ID are required' })
+    if (!Array.isArray(photos) || photos.length === 0) {
+        return res.status(400).json({ message: "No photos provided" });
     }
 
-    // basically the same code as my add user function in models/userModel.js
-    try{
-        const newPhoto = new Photo({
-            userId: req.user._id,
-            imageUrl,
-            cloudinaryId
-        })
+    try {
+        const savedPhotos = await Photo.insertMany(
+            photos.map(photo => ({
+                userId: req.user._id,
+                imageUrl: photo.imageUrl,
+                cloudinaryId: photo.cloudinaryId
+            }))
+        );
 
-        await newPhoto.save()
-        res.status(201).json({ message: 'Photo saved successfully', photo: newPhoto });
-    } catch(err){
-        console.error('Error saving photo:', err);
-        res.status(500).json({ message: 'Server error' });
+        res.status(201).json({
+            success: true,
+            photos: savedPhotos
+        });
+    } catch (err) {
+        console.error("Error saving photos:", err);
+        res.status(500).json({ message: "Server error" });
     }
-})
+});
+
+// DELETE UNCONFIRMED UPLOADS
+app.post("/api/photos/cancel", storeUserId, async (req, res) => {
+    const { cloudinaryIds } = req.body;
+
+    if (!Array.isArray(cloudinaryIds) || cloudinaryIds.length === 0) {
+        return res.json({ success: true });
+    }
+
+    try {
+        await Promise.all(
+            cloudinaryIds.map(publicId =>
+                cloudinary.uploader.destroy(publicId)
+            )
+        );
+
+        res.json({ success: true });
+    } catch (err) {
+        console.error("Cloudinary cleanup failed:", err);
+        res.status(500).json({ message: "Cleanup failed" });
+    }
+});
