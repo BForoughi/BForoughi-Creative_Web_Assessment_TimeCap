@@ -1,4 +1,5 @@
-// Cloudinary upload widget with chatgpt used to convert their docs code into react function as well check whether the user wants to confirm their upload or not
+// Cloudinary upload widget with chatgpt used to convert their docs code into react function as well check whether the user wants to confirm their upload, 
+// I can only take credit for the syling, and quality/sizing control
 import axios from "axios";
 import { useRef, useState } from "react";
 
