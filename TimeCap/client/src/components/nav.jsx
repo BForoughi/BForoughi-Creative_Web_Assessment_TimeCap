@@ -1,3 +1,5 @@
+// Taken from react bootstrap docs
+
 import {Navbar, Nav, Container} from 'react-bootstrap'
 import {Link, NavLink} from 'react-router-dom'
 import { useAuth } from '../context/AuthContext';
