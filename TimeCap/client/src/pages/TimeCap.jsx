@@ -24,7 +24,6 @@ function TimeCap(){
                 <h1>2</h1>
             </HeaderCard>
 
-            
             <br />
 
             <LogoutButton></LogoutButton>

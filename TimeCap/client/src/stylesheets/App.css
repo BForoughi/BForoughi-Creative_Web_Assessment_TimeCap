@@ -19,8 +19,12 @@ body {
   background-color: #ff14d8;
 }
 
-.lock-card{
+#lock-details{
   width: 60%;
+}
+
+#lock-capsule{
+  width: 30%;
 }
 
 #upload-widget-btn{
@@ -30,4 +34,28 @@ body {
   border-radius: 2rem;
   background-color: #fff;
   font-size: 1.5em;
+}
+
+.duration-btns{
+  width: 100%;
+}
+
+#lock-duration-card{
+  color: white;
+  background: linear-gradient(
+    130deg,
+    #b46fff 0%,
+    #ff3fa9 100%
+  );
+}
+
+#pick-date{
+  background-color: #fff;
+  color: #892EEA;
+}
+
+.duration-btns{
+  background-color: #f1c5ff57;
+  color: white;
+  border: white;
 }
