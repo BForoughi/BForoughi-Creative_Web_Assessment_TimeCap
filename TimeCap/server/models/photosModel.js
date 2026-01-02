@@ -4,7 +4,14 @@ const photoSchema = new mongoose.Schema({
     userId:{
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: 'User'
+        ref: 'User',
+        index: true
+    },
+    albumId:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Album",
+        default: null,
+        index: true
     },
     imageUrl:{
         type: String,
@@ -14,10 +21,8 @@ const photoSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    createdAt: {
-        type: Date,
-        default: Date.now
-    }
-})
+},
+{timestamps: true}
+)
 
 export default mongoose.model('Photo', photoSchema)
