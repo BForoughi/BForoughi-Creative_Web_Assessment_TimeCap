@@ -5,6 +5,7 @@ import TestConnection from "./pages/TestConnection"
 import LoginForm from "./pages/LoginForm"
 import TimeCap from "./pages/TimeCap"
 import RegisterForm from "./pages/RegisterForm"
+import LockPage from "./pages/Lock"
 
 import ProtectedRoute from "./components/ProtectedRoute"
 import { AuthProvider } from "./context/AuthContext"
@@ -19,12 +20,20 @@ function App() {
           <Route path="/TestConnection" element={<TestConnection />} />
           
           <Route path="/RegisterForm" element={<RegisterForm />} />
+
           <Route path="/TimeCap" element={
             <ProtectedRoute>
               <TimeCap />
             </ProtectedRoute>
             } 
           />
+          <Route path="/LockPage" element={
+            <ProtectedRoute>
+              <LockPage />
+            </ProtectedRoute>
+            } 
+          />
+
         </Routes>
       </AuthProvider>
     </BrowserRouter>

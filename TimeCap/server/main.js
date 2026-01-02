@@ -207,3 +207,9 @@ app.post("/api/photos/cancel", storeUserId, async (req, res) => {
         res.status(500).json({ message: "Cleanup failed" });
     }
 });
+// --------------------------------
+
+// creating album route
+// app.post("api/albums", storeUserId, aysnc (req, res) => {
+//     const 
+// })

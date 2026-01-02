@@ -2,6 +2,7 @@
 // I can only take credit for the syling, and quality/sizing control
 import axios from "axios";
 import { useRef, useState } from "react";
+import '../stylesheets/App.css'
 
 function UploadButton() {
   const uploadedRef = useRef([]); // store uploaded images temporarily
@@ -102,7 +103,7 @@ function UploadButton() {
 
   return (
     <>
-      <button onClick={openWidget}>Upload Image</button>
+      <button id="upload-widget-btn" onClick={openWidget}>Upload Image</button>
 
       {showConfirm && (
         <div className="confirm-modal">

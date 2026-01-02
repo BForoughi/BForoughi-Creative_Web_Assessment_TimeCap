@@ -23,6 +23,7 @@ function AppNavbar(){
                             {user ? (
                                 <>
                                     <Nav.Link as={NavLink} to="/TimeCap">TimeCap</Nav.Link>
+                                    <Nav.Link as={NavLink} to="/LockPage">Lock</Nav.Link>
                                     {/* <span>Welcome, {user}</span> */}
                                 </>
                             ) : (

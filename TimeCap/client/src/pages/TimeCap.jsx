@@ -1,12 +1,11 @@
 import '../stylesheets/App.css'
 import HeaderCard from '../components/HeaderCard'
-import UploadButton from '../components/UploadWidget'
+
 import LogoutButton from '../components/Logout'
 
 function TimeCap(){
     return(
         <>
-        {/* USE CLOUDINARYS UPLOAD WIDGET FOR YOU IMAGE UPLOADS */}
             <h1>TimeCap</h1>
 
             <HeaderCard id="card-purple" title="Locked Capsules">
@@ -25,7 +24,7 @@ function TimeCap(){
                 <h1>2</h1>
             </HeaderCard>
 
-            <UploadButton></UploadButton>
+            
             <br />
 
             <LogoutButton></LogoutButton>
