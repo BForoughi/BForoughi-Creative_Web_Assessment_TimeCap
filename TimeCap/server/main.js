@@ -157,21 +157,35 @@ app.post("/api/logout", (req, res) =>{
 
 // The below two routes was created by chatgpt and I, I used it to change my original code (adapted from cloudinary getting started code). I added the prompts to stop uploads
 // to cloudinary and mongo if the user clicks "X" on the upload widget and to upload to cloudinary and mongo DB if the user clicks "done" on the widget. Note the original code
-// was similar to what I have previously done with creating a new user.
+// was similar to what I have previously done with creating a new user. Note that also my album code has been added to it.
 
-// storing user's uploaded photos urls from cloudinary upload widget into mongo db 
+// storing user's uploaded photos urls from cloudinary upload widget in and album and then into mongo db 
 // SAVE CONFIRMED UPLOADS
 app.post("/api/photos", storeUserId, async (req, res) => {
-    const { photos } = req.body;
+    const { photos, albumId } = req.body;
 
     if (!Array.isArray(photos) || photos.length === 0) {
         return res.status(400).json({ message: "No photos provided" });
     }
 
     try {
+        // confirming the album belongs to the user
+        if(albumId){
+            const album = await Album.findOne({_id: albumId, userId: req.user._id})
+            if(!album){
+                return res.status(404).json({ message: "Album not found" })
+            }
+            const isLocked = album.lockedUntil && album.lockedUntil.getTime() > Date.now()
+            if(isLocked){
+                return res.status(403).json({ message: "Album is locked. Cannot add photos." })
+            }
+        }
+
+
         const savedPhotos = await Photo.insertMany(
             photos.map(photo => ({
                 userId: req.user._id,
+                albumId: albumId || null,
                 imageUrl: photo.imageUrl,
                 cloudinaryId: photo.cloudinaryId
             }))
@@ -219,7 +233,7 @@ app.post("/api/albums", storeUserId, async (req, res) => {
     }
 
     const album = await Album.create({
-        userId: req.user.id,
+        userId: req.user._id,
         title: title.trim(),
         message: (message || "").trim()
     })
