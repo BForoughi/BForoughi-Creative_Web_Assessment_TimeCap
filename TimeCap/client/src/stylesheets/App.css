@@ -59,3 +59,47 @@ body {
   color: white;
   border: white;
 }
+
+.duration-btns:hover{
+  background-color: #f1c5ffa1;
+}
+
+#lock-capsule-btn{
+  width: 100%;
+  height: 13vh;
+  background: linear-gradient(
+    90deg,
+    #b46fff 0%,
+    #ff3fa9 100%
+  );
+  color: white;
+}
+
+#lock-capsule-btn:hover{
+  background: linear-gradient(
+    90deg,
+    #9a5eda 0%,
+    #d6368e 100%
+  );
+}
+
+#duration-padlock{
+  margin-top: 0.1em;
+  margin-right: 1em;
+  width: 1.4em;
+  height: 1.6em;
+}
+
+#photos-icon{
+  margin-top: 0.1em;
+  margin-left: 0.7em;
+  margin-right: 1em;
+  width: 1.6em;
+  height: 1.8em;
+}
+
+#lock-capsule-padlock{
+  width: 1.2em;
+  height: 1.4em;
+}
+

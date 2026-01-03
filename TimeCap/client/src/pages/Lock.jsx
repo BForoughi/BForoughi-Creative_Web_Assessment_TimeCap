@@ -2,6 +2,8 @@ import '../stylesheets/App.css'
 import { Card } from 'react-bootstrap'
 import UploadButton from '../components/UploadWidget'
 import GerneralCard from '../components/GeneralCard'
+import lockImg from "../assets/icons/lock.png"
+import photosIcon from "../assets/icons/photosIcon.png"
 
 function LockPage(){
     return(
@@ -41,27 +43,55 @@ function LockPage(){
             <div id="lock-capsule">
                 <GerneralCard 
                     id="lock-duration-card" 
-                    cardName="border border-light-subtle p-3 rounded-4"
-                    cardTitleClass="fw-normal fs-4"
+                    cardName="shadow border border-light-subtle p-4 rounded-4 mb-3"
+                    imgId="duration-padlock"
+                    cardIcon={lockImg}
+                    cardTitleClass="fw-medium fs-4"
                     cardTitle="Lock Duration"
-                    textClass=""
+                    textClass="fs-5 fw-light"
                     cardP="Choose how long your memories will be locked"
                     childrenClass="mt-2 ms-3 me-3"
                 >
-                    <button className='duration-btns rounded-4 mb-3 pt-3 pb-3'>1 Month</button>
+                    <button className='duration-btns rounded-4 mb-3 pt-3 pb-3 fw-medium'>1 Month</button>
                     
-                    <button className='duration-btns rounded-4 mb-3 pt-3 pb-3'>3 Months</button>
+                    <button className='duration-btns rounded-4 mb-3 pt-3 pb-3 fw-medium'>3 Months</button>
                     
-                    <button className='duration-btns rounded-4 mb-3 pt-3 pb-3'>6 Months</button>
+                    <button className='duration-btns rounded-4 mb-3 pt-3 pb-3 fw-medium'>6 Months</button>
 
-                    <button className='duration-btns rounded-4 pt-3 pb-3'>1 Year</button>
+                    <button className='duration-btns rounded-4 pt-3 pb-3 fw-medium'>1 Year</button>
                     <hr />
 
                     <button id='pick-date' className='duration-btns rounded-4 mb-2 pt-3 pb-3 fw-medium'>Pick A Custom Date</button>
-
                 </GerneralCard>
-            </div>
 
+                <GerneralCard
+                    id="preview-card"
+                    cardName="shadow border border-light-subtle p-4 rounded-4 mb-3"
+                    imgId="photos-icon"
+                    cardIcon={photosIcon}
+                    cardTitleClass="fw-medium fs-5"
+                    cardTitle="Preview"
+                    childrenClass=""
+                >
+                    <div className="row">
+                        <div className="col-9">
+                            <p>Photos:</p>
+                            <p>Duration:</p>
+                            <p>Unlock Date:</p>
+                        </div>
+                        <div className="col-3 fw-medium">
+                            <p>0</p>
+                            <p>3 Months</p>
+                            <p>3 March, 2026</p>
+                        </div>
+                    </div>
+                </GerneralCard>
+
+            <button id='lock-capsule-btn' className='d-flex justify-content-center align-items-center gap-3 shadow border border-light-subtle p-3 fw-medium fs-4 rounded-4 mb-3'>
+                <img src={lockImg} alt="Image of a small white padlock" id='lock-capsule-padlock'/>
+                <span>Lock Time Capsule</span>
+            </button>
+            </div>
 
         </div>
         
