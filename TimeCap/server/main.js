@@ -12,6 +12,7 @@ import { v2 as cloudinary } from 'cloudinary';
 // -------requiring the module exports-------
 import * as users from './models/userModel.js'
 import Photo from "./models/photosModel.js"
+import Album from "./models/albumModel.js"
 
 // .env variables
 // -------MongoDB-------
@@ -207,9 +208,23 @@ app.post("/api/photos/cancel", storeUserId, async (req, res) => {
         res.status(500).json({ message: "Cleanup failed" });
     }
 });
-// --------------------------------
+// ---------------END-----------------
 
-// creating album route
-// app.post("api/albums", storeUserId, aysnc (req, res) => {
-//     const 
-// })
+//creating album route
+app.post("/api/albums", storeUserId, async (req, res) => {
+    const {title, message} = req.body
+
+    if(!title || !title.trim()){
+        return res.status(400).json({success: false, message: "Album name is required"})
+    }
+
+    const album = await Album.create({
+        userId: req.user.id,
+        title: title.trim(),
+        message: (message || "").trim()
+    })
+
+    res.status(201).json({success: true, album})
+})
+
+// saving uploaded photos to album

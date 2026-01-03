@@ -32,8 +32,11 @@ body {
   width: 90%;
   height: 20vh;
   border-radius: 2rem;
-  background-color: #fff;
+  background-color: #ffffff;
   font-size: 1.5em;
+}
+#upload-widget-btn:hover{
+  background-color: #c9c4c4;
 }
 
 .duration-btns{

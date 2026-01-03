@@ -12,6 +12,11 @@ const albumSchema = new mongoose.Schema(
             required: true,
             trim: true
         },
+        message: {
+            type: String, 
+            trim: true, 
+            default: ""
+        },
         lockedUntil:{
             type: Date,
             default: null
