@@ -272,3 +272,46 @@ app.get("api/albums", storeUserId, async (req, res) =>{
         res.status(500).json({success: false, message: "Server Error"})
     }
 })
+
+// This was made by chatgpt using my current code. I prompt what is the best way to lock my album and then have it stored into mongo to then be later unlocked, 
+// I then asked it to explain the code to me
+// patch is used to update a single field
+app.patch("/api/albums/:id/lock", storeUserId, async (req, res) => {
+    const { unlockAt, lockForSeconds } = req.body;
+
+    try {
+        const album = await Album.findOne({ _id: req.params.id, userId: req.user._id });
+        if (!album) return res.status(404).json({ success: false, message: "Album not found" });
+
+        let lockedUntil;
+
+        if (unlockAt) {
+            // custom date from user
+            lockedUntil = new Date(unlockAt);
+        } else if (lockForSeconds) {
+            // user selects one of the time presets e.g. 1 month 3 months...
+            lockedUntil = new Date(Date.now() + Number(lockForSeconds) * 1000);
+        } else {
+            return res.status(400).json({
+                success: false,
+                message: "Provide unlockAt or lockForSeconds",
+            });
+        }
+
+        // validate the date to see whether it's a real date and whether it is in the future
+        if (Number.isNaN(lockedUntil.getTime()) || lockedUntil <= new Date()) {
+            return res.status(400).json({
+                success: false,
+                message: "Unlock time must be a valid future date",
+            });
+        }
+
+        album.lockedUntil = lockedUntil;
+        await album.save();
+
+        return res.json({ success: true, lockedUntil: album.lockedUntil });
+    } catch (err) {
+        console.error("Error locking album:", err);
+        return res.status(500).json({ success: false, message: "Server error" });
+    }
+});
