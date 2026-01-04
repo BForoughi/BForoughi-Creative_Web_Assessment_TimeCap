@@ -232,13 +232,19 @@ app.post("/api/albums", storeUserId, async (req, res) => {
         return res.status(400).json({success: false, message: "Album name is required"})
     }
 
-    const album = await Album.create({
-        userId: req.user._id,
-        title: title.trim(),
-        message: (message || "").trim()
-    })
-
-    res.status(201).json({success: true, album})
+    try{
+        const album = await Album.create({
+            userId: req.user._id,
+            title: title.trim(),
+            message: (message || "").trim(),
+            lockedUntil: null
+        })
+        res.status(201).json({success: true, album})
+    } catch(err){
+        console.err("Error creating album")
+        return res.status(500).json({ success: false, message: "Server error" });
+    }
+    
 })
 
 // saving uploaded photos to album
