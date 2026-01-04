@@ -247,4 +247,28 @@ app.post("/api/albums", storeUserId, async (req, res) => {
     
 })
 
-// saving uploaded photos to album
+// fetching the album with the unlock date closest to current date (whatever unlocks sooner)
+app.get("api/albums", storeUserId, async (req, res) =>{
+    try{
+        const albums = await Album.find({userId: req.user._id}).sort({lockedUntil: 1, createdAt: 1})
+
+        // sending clean data - not raw mongo data
+        const shaped = albums.map((a) =>{
+            // sorting via lockedUntil time (soonest first)
+            const isLocked = a.lockedUntil && a.lockedUntil.getTime() > Date.now()
+            return{
+                _id: a._id,
+                title: a.title,
+                message: a.message,
+                lockedUntil: a.lockedUntil,
+                isLocked,
+                createdAt: a.createdAt,
+                updatedAt: a.updatedAt,
+            }
+        })
+        res.json({success: true, albums: shaped})
+    } catch(err){
+        console.error("error fetching albums")
+        res.status(500).json({success: false, message: "Server Error"})
+    }
+})
