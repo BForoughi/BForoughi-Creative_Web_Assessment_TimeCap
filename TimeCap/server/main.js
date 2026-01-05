@@ -241,20 +241,21 @@ app.post("/api/albums", storeUserId, async (req, res) => {
         })
         res.status(201).json({success: true, album})
     } catch(err){
-        console.err("Error creating album")
+        console.err("Error creating album", err)
         return res.status(500).json({ success: false, message: "Server error" });
     }
     
 })
 
-// fetching the album with the unlock date closest to current date (whatever unlocks sooner)
+// fetching the album with the unlock date closest to current date (whatever unlocks sooner) - this is used for displaying the users albums
 app.get("api/albums", storeUserId, async (req, res) =>{
     try{
+        // sorting via lockedUntil time (soonest first)
         const albums = await Album.find({userId: req.user._id}).sort({lockedUntil: 1, createdAt: 1})
 
         // sending clean data - not raw mongo data
         const shaped = albums.map((a) =>{
-            // sorting via lockedUntil time (soonest first)
+            // checks to see if album lock is in the future or past to then return data if lock is in the past
             const isLocked = a.lockedUntil && a.lockedUntil.getTime() > Date.now()
             return{
                 _id: a._id,
@@ -268,8 +269,40 @@ app.get("api/albums", storeUserId, async (req, res) =>{
         })
         res.json({success: true, albums: shaped})
     } catch(err){
-        console.error("error fetching albums")
+        console.error("error fetching albums", err)
         res.status(500).json({success: false, message: "Server Error"})
+    }
+})
+
+// fetching the photos stored within the album
+app.get("api/albums/:id/photos", storeUserId, async (req, res) =>{
+    try{
+        const album = await Album.findOne({ _id: req.params.id, userId: req.user._id})
+        if(!album) return res.status(404).json({success: false, message: "Album not found"})
+
+        // Again checking if the album is unlocked
+        const isLocked = a.lockedUntil && a.lockedUntil.getTime() > Date.now()
+
+        const photos = await Photo.find({ userId: req.user._id, albumId: album._id }).sort({createdAt: -1,});
+        return res.json({
+            // this time it's returning both the album info and each photo contained within the album
+            album:{
+                _id: album._id,
+                title: album.title,
+                message: album.message,
+                lockedUntil: album.lockedUntil,
+                isLocked,
+            },
+            photos: photos.map((p) => ({
+                _id: p._id,
+                cloudinaryId: p.cloudinaryId,
+                createdAt: p.createdAt,
+                imageUrl: isLocked ? null : p.imageUrl
+            }))
+        })
+    } catch (err) {
+        console.error("Error fetching album photos:", err);
+        return res.status(500).json({ success: false, message: "Server error" });
     }
 })
 
@@ -315,3 +348,4 @@ app.patch("/api/albums/:id/lock", storeUserId, async (req, res) => {
         return res.status(500).json({ success: false, message: "Server error" });
     }
 });
+
