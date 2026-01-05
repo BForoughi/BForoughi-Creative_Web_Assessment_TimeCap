@@ -240,7 +240,7 @@ app.post("/api/albums", storeUserId, async (req, res) => {
         })
         res.status(201).json({success: true, album})
     } catch(err){
-        console.err("Error creating album", err)
+        console.error("Error creating album", err)
         return res.status(500).json({ success: false, message: "Server error" });
     }
     
