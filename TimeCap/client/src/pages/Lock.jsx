@@ -4,7 +4,7 @@ import UploadButton from '../components/UploadWidget'
 import GerneralCard from '../components/GeneralCard'
 import lockImg from "../assets/icons/lock.png"
 import photosIcon from "../assets/icons/photosIcon.png"
-import { useState, useMemo } from 'react'
+import { useState } from 'react'
 import axios from 'axios'
 
 function LockPage(){
