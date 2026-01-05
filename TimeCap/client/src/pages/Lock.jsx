@@ -181,13 +181,13 @@ function LockPage(){
                     
                     <button type='button' onClick={() => handlePickDuration("6 Months", 60 * 60 *24 * 180)} className='duration-btns rounded-4 mb-3 pt-3 pb-3 fw-medium'>6 Months</button>
 
-                    <button type='button' onClick={() => handlePickDuration("1 Month", 60 * 60 *24 * 365)} className='duration-btns rounded-4 pt-3 pb-3 fw-medium'>1 Year</button>
+                    <button type='button' onClick={() => handlePickDuration("1 Year", 60 * 60 *24 * 365)} className='duration-btns rounded-4 pt-3 pb-3 fw-medium'>1 Year</button>
                     <hr />
 
                     <button 
                         id='pick-date' 
                         className='duration-btns rounded-4 mb-2 pt-3 pb-3 fw-medium' 
-                        type='date'
+                        type='button'
                         onClick={handlePickCustomDate}
                     >Pick A Custom Date</button>
 
