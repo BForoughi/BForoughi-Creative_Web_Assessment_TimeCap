@@ -78,11 +78,12 @@ function UploadButton({ albumId, ensureAlbum, onCountChange, onError }) {
       );
     } catch(err){
       console.error(err)
-      onError?.(e?.message || "Could not open upload widget")
+      onError?.(err?.message || "Could not open upload widget")
     }
   };
 
   const handleConfirm = async (save) => {
+    const ensuredAlbumId = albumId || (await ensureAlbum?.());
     if (save) {
       // Save to backend
       try {
