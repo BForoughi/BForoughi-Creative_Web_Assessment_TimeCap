@@ -181,7 +181,6 @@ app.post("/api/photos", storeUserId, async (req, res) => {
             }
         }
 
-
         const savedPhotos = await Photo.insertMany(
             photos.map(photo => ({
                 userId: req.user._id,
