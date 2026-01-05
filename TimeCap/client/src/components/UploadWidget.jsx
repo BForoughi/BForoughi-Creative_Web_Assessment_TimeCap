@@ -84,12 +84,16 @@ function UploadButton({ albumId, ensureAlbum, onCountChange, onError }) {
 
   const handleConfirm = async (save) => {
     const ensuredAlbumId = albumId || (await ensureAlbum?.());
+    if (!ensuredAlbumId) {
+      onError?.("Please enter an album name first.");
+      return;
+    }
     if (save) {
       // Save to backend
       try {
         await axios.post(
           "/api/photos",
-          { albumId: ensureAlbumId, photos: uploadedRef.current },
+          { albumId: ensuredAlbumId, photos: uploadedRef.current },
           { withCredentials: true }
         )
         // update the photo count
