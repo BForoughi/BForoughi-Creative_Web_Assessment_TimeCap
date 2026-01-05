@@ -247,7 +247,7 @@ app.post("/api/albums", storeUserId, async (req, res) => {
 })
 
 // fetching the album with the unlock date closest to current date (whatever unlocks sooner) - this is used for displaying the users albums
-app.get("api/albums", storeUserId, async (req, res) =>{
+app.get("/api/albums", storeUserId, async (req, res) =>{
     try{
         // sorting via lockedUntil time (soonest first)
         const albums = await Album.find({userId: req.user._id}).sort({lockedUntil: 1, createdAt: 1})
@@ -274,13 +274,13 @@ app.get("api/albums", storeUserId, async (req, res) =>{
 })
 
 // fetching the photos stored within the album
-app.get("api/albums/:id/photos", storeUserId, async (req, res) =>{
+app.get("/api/albums/:id/photos", storeUserId, async (req, res) =>{
     try{
         const album = await Album.findOne({ _id: req.params.id, userId: req.user._id})
         if(!album) return res.status(404).json({success: false, message: "Album not found"})
 
         // Again checking if the album is unlocked
-        const isLocked = a.lockedUntil && a.lockedUntil.getTime() > Date.now()
+        const isLocked = album.lockedUntil && album.lockedUntil.getTime() > Date.now()
 
         const photos = await Photo.find({ userId: req.user._id, albumId: album._id }).sort({createdAt: -1,});
         return res.json({
