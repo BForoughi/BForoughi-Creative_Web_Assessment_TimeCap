@@ -106,3 +106,7 @@ body {
   height: 1.4em;
 }
 
+.log-card-styling{
+  width: 50%;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.12);
+}

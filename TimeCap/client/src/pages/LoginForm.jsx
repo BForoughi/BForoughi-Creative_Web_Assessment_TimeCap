@@ -2,6 +2,8 @@ import { useState } from "react";
 import axios from 'axios'; // axios is something I found from chatgpt as a better alternative to fetch as it ads automation
 import {useNavigate, useLocation} from 'react-router-dom'
 import { useAuth } from "../context/AuthContext";
+import "../stylesheets/App.css"
+import LogCard from "../components/logCard";
 
 
 
@@ -48,27 +50,40 @@ function LoginForm(){
 
 
     return(
-        <div className="login-container">
-            <h2>Sign In</h2>
+        <LogCard 
+            className="d-flex justify-content-center mt-5"
+            cardName="log-card-styling p-5 rounded-4 border border-light-subtle"
+            cardTitle="Sign In"
+            titleClass="fs-2 text-center mb-4 fw-normal"
+        >
             {message && <p>{message}</p>}
             <form onSubmit={handleSubmit}>
-                <input 
-                    type="text" 
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    placeholder="Username"
-                />
-                <input 
-                    type="password" 
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Password"
-                />
+                <div className="contanier">
+                    <input 
+                        required
+                        type="text" 
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        placeholder="Username"
+                        className="fs-5 rounded-3 p-2 mb-2 form-control"
+                    />
+                    <input 
+                        required
+                        type="password" 
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="Password"
+                        className="fs-5 rounded-3 p-2 mb-2 form-control"
+                    />
+                </div>
+                
 
-                <button type="submit">Login</button>
+                <div className="d-flex justify-content-end">
+                    <button className="btn btn-primary btn-lg " type="submit">Login</button>
+                </div>
                 {error && <p style={{color: 'red'}}>{error}</p>}
             </form>
-        </div>
+        </LogCard>
     )
 }
 
