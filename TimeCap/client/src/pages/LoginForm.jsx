@@ -56,7 +56,11 @@ function LoginForm(){
             cardTitle="Sign In"
             titleClass="fs-2 text-center mb-4 fw-normal"
         >
-            {message && <p>{message}</p>}
+            {message && (
+                <div className="alert alert-light text-primary mt-3">
+                    {message}
+                </div>
+            )}
             <form onSubmit={handleSubmit}>
                 <div className="contanier">
                     <input 
@@ -81,7 +85,11 @@ function LoginForm(){
                 <div className="d-flex justify-content-end">
                     <button className="btn btn-primary btn-lg " type="submit">Login</button>
                 </div>
-                {error && <p style={{color: 'red'}}>{error}</p>}
+                {error && (
+                    <div className="alert alert-danger text-primary mt-3">
+                        {error}
+                    </div>
+                )}
             </form>
         </LogCard>
     )

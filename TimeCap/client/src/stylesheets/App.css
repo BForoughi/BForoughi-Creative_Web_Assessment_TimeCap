@@ -34,6 +34,12 @@ body {
   );
 }
 
+.homeIcons{
+  width: 1.5rem;
+  height: 1.7rem;
+  margin-bottom: 20px;
+}
+
 #lock-details{
   width: 60%;
 }

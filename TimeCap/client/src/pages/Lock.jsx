@@ -155,7 +155,11 @@ function LockPage(){
                             onCountChange={setPhotoCount}
                             onError={(msg) => setError(msg)}
                         ></UploadButton>
-
+                        {error && (
+                            <div className="alert alert-danger text-primary">
+                                {error}
+                            </div>
+                        )}
                     </Card.Body>
                 </Card>
             </div>

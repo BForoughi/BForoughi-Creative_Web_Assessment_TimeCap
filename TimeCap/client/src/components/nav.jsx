@@ -27,18 +27,18 @@ function AppNavbar(){
 
                 <Navbar.Collapse id="app-navbar-nav">
                     <Nav className="app-nav__links ms-auto">
-                        {/* Always visible link */}
-                        <Nav.Link as={NavLink} to="/TimeCap" className="app-nav__link">
-                            <img className="app-nav__icon" src={homeIcon} alt="Home icon" />
-                            <span className="app-nav__label">Home</span>
-                        </Nav.Link>
-
                         {user ? (
                         <>
+                            <Nav.Link as={NavLink} to="/TimeCap" className="app-nav__link">
+                                <img className="app-nav__icon" src={homeIcon} alt="Home icon" />
+                                <span className="app-nav__label">Home</span>
+                            </Nav.Link>
+
                             <Nav.Link as={NavLink} to="/messages" className="app-nav__link">
                                 <img className="app-nav__icon" src={messagesIcon} alt="Messenger icon" />
                                 <span className="app-nav__label">Messages</span>
                             </Nav.Link>
+
                             <Nav.Link as={NavLink} to="/LockPage" className="app-nav__link">
                                 <img className="app-nav__icon" src={lockIcon} alt="Padlock icon" />
                                 <span className="app-nav__label">Lock</span>
@@ -51,10 +51,16 @@ function AppNavbar(){
                         </>
                         ) : (
                         <>
+                            <Nav.Link as={NavLink} to="/LandingPage" className="app-nav__link">
+                                <img className="app-nav__icon" src={homeIcon} alt="Home icon" />
+                                <span className="app-nav__label">Info</span>
+                            </Nav.Link>
+
                             <Nav.Link as={NavLink} to="/" className="app-nav__link">
                             <img className="app-nav__icon" src={loginIcon} alt="Login icon" />
                                 <span className="app-nav__label">Login</span>
                             </Nav.Link>
+
                             <Nav.Link as={NavLink} to="/RegisterForm" className="app-nav__link">
                             <img className="app-nav__icon" src={registerIcon} alt="R symbol to represent a register icon" />
                                 <span className="app-nav__label">Register</span>

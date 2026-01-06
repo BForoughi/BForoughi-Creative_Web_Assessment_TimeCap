@@ -127,7 +127,6 @@ function UploadButton({ albumId, ensureAlbum, onCountChange, onError }) {
   return (
     <>
       <button id="upload-widget-btn" onClick={openWidget}>Upload Image</button>
-
       {showConfirm && (
         <div className="confirm-modal">
           <p>Do you want to save the uploaded images?</p>
