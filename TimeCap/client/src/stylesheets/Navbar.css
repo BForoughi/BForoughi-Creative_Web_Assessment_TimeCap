@@ -1,0 +1,85 @@
+/* overall bar */
+.app-nav {
+    background: transparent;
+    z-index: 1030; /* bootstrap navbar z */
+}
+
+/* rounded white pill container */
+.app-nav__inner {
+    background: #fff;
+    border-radius: 100px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.12);
+    width: 60% !important;
+}
+
+/* desktop layout: icons spaced evenly */
+.app-nav__links {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* each nav item */
+.app-nav__link {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    color: #000000 !important;
+}
+
+/* icon sizing */
+.app-nav__icon {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+}
+
+.app-nav__label {
+    font-size: 1rem;
+    line-height: 1;
+}
+
+/* active state */
+.app-nav__link.active .app-nav__label {
+    color: #ff4fa4; 
+    font-weight: 500;
+}
+
+/* hamburger button styling */
+.app-nav__toggle {
+    border: 0 !important;
+    box-shadow: none !important;
+}
+
+/* ----- responsive: collapse into dropdown on small screens ----- */
+@media (max-width: 991px) {
+/* keep pill look, but align toggle nicely */
+    .app-nav__inner {
+        border-radius: 20px;
+        width: 70%!important;
+    }
+
+    /* collapsed menu becomes a vertical dropdown */
+    .app-nav__links {
+        justify-content: flex-start;
+        align-items: stretch;
+        flex-direction: column;
+        gap: 0.5rem;
+        padding-top: 0.75rem;
+    }
+
+    .app-nav__link {
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 0.75rem;
+        padding: 0.6rem 0.75rem;
+        border-radius: 12px;
+    }
+
+    .app-nav__label {
+        font-size: 1rem;
+    }
+}

@@ -1,8 +1,16 @@
-// Taken from react bootstrap docs
+// Taken from react bootstrap docs, I was struggling with naming coventions so i went on youtube and found this video about BEM naming conventions - https://www.youtube.com/shorts/AJSrjaDfM0c 
+// this video helped me understand how to us it: https://www.youtube.com/watch?v=SLjHSVwXYq4
 
 import {Navbar, Nav, Container} from 'react-bootstrap'
-import {Link, NavLink} from 'react-router-dom'
+import {NavLink} from 'react-router-dom'
 import { useAuth } from '../context/AuthContext';
+import "../stylesheets/Navbar.css"
+
+// icons for nav items
+import homeIcon from "../assets/icons/home.png";
+import messagesIcon from "../assets/icons/message.png";
+import lockIcon from "../assets/icons/navLock.png";
+import cameraIcon from "../assets/icons/camera.png";
 
 function AppNavbar(){
 
@@ -10,30 +18,45 @@ function AppNavbar(){
     if(loading) return null
 
     return(
-        <Navbar expand="lg">
-            <Container>
-                {/* Hamburger icon for mobile view */}
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                {/* hides the links on mobile */}
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav>
-                        <Container className="container-fluid">
-                            <Nav.Link as={NavLink} to="/TestConnection">Test</Nav.Link>
+        <Navbar expand="lg" className="app-nav mt-3 mb-3">
+            <Container className="app-nav__inner pt-3 pb-3 ps-5 pe-5">
+                {/* Hamburger (shows on < lg) */}
+                <Navbar.Toggle aria-controls="app-navbar-nav" className="app-nav__toggle" />
 
-                            {user ? (
-                                <>
-                                    <Nav.Link as={NavLink} to="/TimeCap">TimeCap</Nav.Link>
-                                    <Nav.Link as={NavLink} to="/LockPage">Lock</Nav.Link>
-                                    {/* <span>Welcome, {user}</span> */}
-                                </>
-                            ) : (
-                                <>
-                                    <Nav.Link as={NavLink} to="/">Login</Nav.Link>
-                                    <Nav.Link as={NavLink} to="/RegisterForm">Register</Nav.Link>
-                                </>
-                            )}
-                            
-                        </Container>
+                <Navbar.Collapse id="app-navbar-nav">
+                    <Nav className="app-nav__links ms-auto">
+                        {/* Always visible link */}
+                        <Nav.Link as={NavLink} to="/TimeCap" className="app-nav__link">
+                            <img className="app-nav__icon" src={homeIcon} alt="" />
+                            <span className="app-nav__label">Home</span>
+                        </Nav.Link>
+
+                        {user ? (
+                        <>
+                            <Nav.Link as={NavLink} to="/messages" className="app-nav__link">
+                                <img className="app-nav__icon" src={messagesIcon} alt="" />
+                                <span className="app-nav__label">Messages</span>
+                            </Nav.Link>
+                            <Nav.Link as={NavLink} to="/LockPage" className="app-nav__link">
+                                <img className="app-nav__icon" src={lockIcon} alt="" />
+                                <span className="app-nav__label">Lock</span>
+                            </Nav.Link>
+
+                            <Nav.Link as={NavLink} to="/camera" className="app-nav__link">
+                                <img className="app-nav__icon" src={cameraIcon} alt="" />
+                                <span className="app-nav__label">Camera</span>
+                            </Nav.Link>
+                        </>
+                        ) : (
+                        <>
+                            <Nav.Link as={NavLink} to="/" className="app-nav__link">
+                                <span className="app-nav__label">Login</span>
+                            </Nav.Link>
+                            <Nav.Link as={NavLink} to="/RegisterForm" className="app-nav__link">
+                                <span className="app-nav__label">Register</span>
+                            </Nav.Link>
+                        </>
+                        )}
                     </Nav>
                 </Navbar.Collapse>
             </Container>
