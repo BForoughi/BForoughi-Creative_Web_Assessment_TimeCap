@@ -2,9 +2,8 @@ body {
   text-align: center;
 }
 
-.header-card{
-  width: 30%;
-}
+
+
 .card-header{
   display: flex;
   justify-content: space-between;
@@ -12,11 +11,27 @@ body {
 }
 
 #card-purple{
-  background-color: #8c34ff;
+  background: linear-gradient(
+    165deg,
+    #b46fff 30%,
+    #a44eff 70%
+  );
 }
 
 #card-pink{
-  background-color: #ff14d8;
+  background: linear-gradient(
+    165deg,
+    rgb(253, 132, 185) 20%,
+    #FF4C9A 80%
+  );
+}
+
+#card-blue{
+  background: linear-gradient(
+    160deg,
+    #68a4fd 30%,
+    #3586FF 70%
+  );
 }
 
 #lock-details{
