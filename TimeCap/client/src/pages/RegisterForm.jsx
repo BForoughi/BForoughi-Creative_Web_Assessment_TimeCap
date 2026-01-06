@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom'
 import { Container, Button } from "react-bootstrap";
+import GerneralCard from "../components/GeneralCard";
 
 function RegisterForm(){
     // Input fields
@@ -41,7 +42,6 @@ function RegisterForm(){
         <div className="register-container">
             <Container className="d-flex justify-content-center">
                 <h2>Register</h2>
-                <Button variant="light" onClick={() => navigate('/')}>Sign In</Button>
             </Container>
             
             <form onSubmit={handleSubmit}>
