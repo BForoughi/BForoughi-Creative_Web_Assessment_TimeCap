@@ -131,3 +131,8 @@ body {
   width: 50%;
   box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.12);
 }
+
+.capsule-img-blur {
+  filter: blur(6px);
+  transform: scale(1.05);
+}
