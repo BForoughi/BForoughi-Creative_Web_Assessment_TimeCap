@@ -156,7 +156,7 @@ function LockPage(){
                             onError={(msg) => setError(msg)}
                         ></UploadButton>
                         {error && (
-                            <div className="alert alert-danger text-primary">
+                            <div className="alert alert-danger text-primary mt-2">
                                 {error}
                             </div>
                         )}

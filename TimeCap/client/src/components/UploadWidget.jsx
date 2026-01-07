@@ -3,6 +3,7 @@
 import axios from "axios";
 import { useRef, useState } from "react";
 import '../stylesheets/App.css'
+import { Button } from "react-bootstrap";
 
 function UploadButton({ albumId, ensureAlbum, onCountChange, onError }) {
   const uploadedRef = useRef([]); // store uploaded images temporarily
@@ -129,9 +130,9 @@ function UploadButton({ albumId, ensureAlbum, onCountChange, onError }) {
       <button id="upload-widget-btn" onClick={openWidget}>Upload Image</button>
       {showConfirm && (
         <div className="confirm-modal">
-          <p>Do you want to save the uploaded images?</p>
-          <button onClick={() => handleConfirm(true)}>Yes</button>
-          <button onClick={() => handleConfirm(false)}>No</button>
+          <p>Do you want to use these images in your album?</p>
+          <Button className="me-1 btn btn-primary" onClick={() => handleConfirm(true)}>Yes</Button>
+          <Button className="btn btn-secondary" onClick={() => handleConfirm(false)}>No</Button>
         </div>
       )}
     </>
