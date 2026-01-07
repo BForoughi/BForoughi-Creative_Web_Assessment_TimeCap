@@ -130,7 +130,7 @@ function LockPage(){
                             className='form-control mt-2 ps-3 rounded-3'
                         />
                         <br />
-                        <Card.Subtitle className='fw-light fs-5 mt-2'>Add a Message (Optial)</Card.Subtitle>
+                        <Card.Subtitle className='fw-light fs-5 mt-2'>Add a Message (Optional)</Card.Subtitle>
                         <input 
                             type="text" 
                             value={message}

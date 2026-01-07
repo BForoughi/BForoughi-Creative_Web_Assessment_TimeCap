@@ -348,3 +348,39 @@ app.patch("/api/albums/:id/lock", storeUserId, async (req, res) => {
     }
 });
 
+// route to retrieve dashboard stats
+app.get("/api/dashboard/stats", storeUserId, async (req, res) =>{
+    try{
+        const userId = req.user._id
+        const now = new Date()
+
+        // count the ablums that are currently locked
+        const lockedCount = await Album.countDocuments({
+            userId,
+            // lockedUntil is > now(current date)
+            lockedUntil: {$gt: now}
+        })
+
+        // count the albums that are ready to open
+        const readyCount = await Album.countDocuments({
+            userId,
+            // lockedUntil exists(not equal to null), and is <= now(current date)
+            lockedUntil: {$ne: null, $lte: now}
+        })
+
+        // count all the users photos
+        const totalPhotos = await Photo.countDocuments({userId})
+
+        return res.json({
+            success: true,
+            stats: {
+                lockedCount,
+                readyCount,
+                totalPhotos
+            }
+        })
+    } catch(err){
+        console.error("Error getting dashboard stats: ", err)
+        return res.status(500).json({success: false, message: "Server error"})
+    }
+})
