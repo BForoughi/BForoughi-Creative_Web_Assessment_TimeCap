@@ -234,7 +234,7 @@ function LockPage(){
                 onClick={handleLockCapsule}
                 className='d-flex justify-content-center align-items-center gap-3 shadow border border-light-subtle p-3 fw-medium fs-4 rounded-4 mb-3'
             >
-                <img src={lockImg} alt="Image of a small white padlock" id='lock-capsule-padlock'/>
+                <img src={lockImg} alt="Image of a small white padlock" className='lock-capsule-padlock'/>
                 <span>{saving ? "Locking..." : "Lock Time Capsule"}</span>
             </button>
             </div>

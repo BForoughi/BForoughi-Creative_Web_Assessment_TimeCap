@@ -2,10 +2,13 @@ import '../stylesheets/App.css'
 import HeaderCard from '../components/HeaderCard'
 import LogoutButton from '../components/Logout'
 import CapsuleCard from '../components/Capsules'
+import GerneralCard from '../components/GeneralCard'
 // icons
 import whiteLock from "../assets/icons/whiteLock.png"
 import unlock from "../assets/icons/unlock.png"
 import whitePhotos from "../assets/icons/whitePhotos.png"
+import quickLockImg from "../assets/icons/archive.png"
+import lockImg from "../assets/icons/purpleLock.png"
 // placeholder image: - image was created by chat gpt
 import placeholderCover from "../assets/image/placeholderCover.png"
 
@@ -38,7 +41,6 @@ function calcDaysRemaining(lockedUntil) {
 }
 // ---------end-------
 
-
 function TimeCap(){
     // useStates:
     const [stats, setStates] = useState({
@@ -49,6 +51,7 @@ function TimeCap(){
     const [error, setError] = useState("")
     const [albums, setAlbums] = useState([])
     const [loading, setLoading] = useState(true)
+    const [isDisabled, setIsDisabled] = useState(false)
     
     // useEffects:
     useEffect(() => {
@@ -140,6 +143,7 @@ function TimeCap(){
 
     if (loading) return <div className="container mt-4">Loading...</div>;
 
+
     return(
         <>
             {error && (
@@ -193,7 +197,7 @@ function TimeCap(){
                 ) : (
                     <div className="row g-4 w-75">
                         {sortedAlbums.map((a) => (
-                            <div className="col-12 col-md-5 col-xl-4" key={a._id}>
+                            <div className="col-12 col-md-6 col-xl-4" key={a._id}>
                             <CapsuleCard
                                 title={a.title}
                                 message={a.message}
@@ -205,6 +209,52 @@ function TimeCap(){
                             />
                             </div>
                         ))}
+
+                        <div className="col-12 col-md-8 col-xl-4">
+                            <GerneralCard
+                                id="quick-lock-card" 
+                                cardName="shadow border border-light-subtle p-4 rounded-4 mb-3"
+                                imgId="quick-lock-icon"
+                                cardIcon={quickLockImg}
+                                cardTitleClass="fw-medium ms-3 mb-3 fs-4"
+                                cardTitle="Create Time Capsule"
+                                textClass="fs-5 fw-light"
+                                cardP="Lock your memories and unlock them in the future."
+                                childrenClass="mt-2 ms-3 me-3"
+                            >
+                                <div id="small-durations-container">
+                                    <input className='form-control pt-2 pb-2 rounded-4' placeholder='Capsule name...' type="text" />
+                                    <div className="row d-flex gap-4 justify-content-center mt-3">
+                                        <button type='button' onClick="" className='duration-btns col-5 rounded-3 mb-3 pt-2 pb-2 fw-medium'>1 Month</button>
+                                        <button type='button' onClick="" className='duration-btns col-5 rounded-3 mb-3 pt-2 pb-2 fw-medium'>3 Months</button>
+                                    </div>
+                                    <div className="row d-flex gap-4 justify-content-center">
+                                        <button type='button' onClick="" className='duration-btns col-5 rounded-3 mb-3 pt-2 pb-2 fw-medium'>6 Months</button>
+                                        <button type='button' onClick="" className='duration-btns col-5 rounded-3 mb-3 pt-2 pb-2 fw-medium'>1 Year</button>
+                                    </div>
+
+                                    <button 
+                                        id='pick-date' 
+                                        className='duration-btns rounded-4 mt-2 mb-2 pt-3 pb-3 fw-medium' 
+                                        type='button'
+                                        onClick={() => setIsDisabled(true)}
+                                    >Pick A Custom Date</button>
+                                    <hr />
+
+                                    <button id='quick-lock-it' onClick={() => setIsDisabled(true)} className='rounded-4 mt-2 pt-3 pb-3 fw-medium'><img src={lockImg} alt="Image of a small white padlock" className='lock-capsule-padlock me-2 mb-1'/>
+                                        Lock it!
+                                    </button>
+                                    {isDisabled ? (
+                                        <p className="text-white fs-4 mt-2">
+                                            Feature coming soon!
+                                        </p>
+                                    ) : (
+                                        <p></p>
+                                    )}
+                                </div>
+                            </GerneralCard>
+                        </div>
+                        
                     </div>
                 )}
             </div>

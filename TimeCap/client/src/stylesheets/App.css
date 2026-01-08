@@ -60,10 +60,6 @@ body {
   background-color: #c9c4c4;
 }
 
-.duration-btns{
-  width: 100%;
-}
-
 #lock-duration-card{
   color: white;
   background: linear-gradient(
@@ -79,6 +75,7 @@ body {
 }
 
 .duration-btns{
+  width: 100%;
   background-color: #f1c5ff57;
   color: white;
   border: white;
@@ -86,6 +83,11 @@ body {
 
 .duration-btns:hover{
   background-color: #f1c5ffa1;
+}
+
+.duration-btns:active{
+  background-color: white;
+  color: #892EEA;
 }
 
 #lock-capsule-btn{
@@ -122,7 +124,7 @@ body {
   height: 1.8em;
 }
 
-#lock-capsule-padlock{
+.lock-capsule-padlock{
   width: 1.2em;
   height: 1.4em;
 }
@@ -145,7 +147,7 @@ body {
   min-height: 39vh;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 991px) {
   .responsive-width {
     min-width: 75% !important;
   }
@@ -156,3 +158,23 @@ body {
   }
 }
 
+#quick-lock-card{
+  color: white;
+  background: linear-gradient(
+    130deg,
+    #b46fff 0%,
+    #fd47ab 100%
+  );
+}
+
+#quick-lock-icon{
+  width: 2.1em;
+  height: 2.1em;
+}
+
+#quick-lock-it{
+  width: 100%;
+  background-color: #F0B615;
+  border: white;
+  font-size: 1.2em;
+}
