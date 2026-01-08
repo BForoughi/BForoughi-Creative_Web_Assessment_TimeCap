@@ -81,7 +81,7 @@ const storeUserId = (req, res, next) => {
         req.user = {_id: req.session.userId}
         return next()
     }
-    return res.status(401).json({message: 'No user ID'})
+    return res.status(401).json({message: 'Unauthorised'})
 }
 
 // ----------ROUTES--------- 

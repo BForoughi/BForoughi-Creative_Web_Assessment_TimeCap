@@ -156,6 +156,10 @@ body {
     margin-top: 15px;
     margin-left: 3rem;
   }
+
+  .log-card-styling{
+    width: 75%;
+  }
 }
 
 #quick-lock-card{

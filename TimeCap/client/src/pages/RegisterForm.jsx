@@ -30,6 +30,8 @@ function RegisterForm(){
             if(res.data.success){
                 // add a token
                 console.log('register success')
+
+                await axios.get("/api/auth/check", {withCredentials: true})
                 navigate('/TimeCap')
             }
         } catch(err){
@@ -49,31 +51,31 @@ function RegisterForm(){
             <form onSubmit={handleSubmit}>
                 <div className="container">
                     <div className="row">
-                        <div className="col-6">
+                        <div className="col-lg-6 mb-2">
                             <input 
                                 required
                                 type="text" 
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
                                 placeholder="Username"
-                                className="fs-5 rounded-3 p-2 mb-2 form-control"
+                                className="fs-5 rounded-3 p-2 form-control"
                             />
                         </div>
                 
-                        <div className="col-6">
-                        <input 
-                                required
-                                type="password" 
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                placeholder="Password"
-                                className="fs-5 rounded-3 p-2 form-control"
-                            /> 
+                        <div className="col-lg-6 mb-2">
+                            <input 
+                                    required
+                                    type="password" 
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    placeholder="Password"
+                                    className="fs-5 rounded-3 p-2 form-control"
+                                /> 
                         </div>
                     </div>
 
                     <div className="row">
-                        <div className="col-6">
+                        <div className="col-lg-6 mb-2">
                             <input
                                 required 
                                 type="text" 
@@ -84,7 +86,7 @@ function RegisterForm(){
                             />
                         </div>
 
-                        <div className="col-6">
+                        <div className="col-lg-6">
                             <input 
                                 required
                                 type="text" 
