@@ -11,7 +11,7 @@ function CapsuleCard({
     daysRemaining
 }){
     return (
-        <Card className="shadow-sm rounded-4 overflow-hidden">
+        <Card className="shadow-sm rounded-4 overflow-hidden capsule-card">
             <div className="position-relative">
                 <Card.Img
                     src={coverUrl}
@@ -23,12 +23,14 @@ function CapsuleCard({
                     bg={isLocked ? "primary" : "success"}
                     className="position-absolute top-0 end-0 m-2 px-3 py-2 rounded-pill"
                 >
-                    {isLocked ? `${daysRemaining}d` : "Open"}
+                    {/* emoji from - https://emojipedia.org/unlocked*/}
+                    {isLocked ? `${daysRemaining}d` : "🔓 Open"} 
                 </Badge>
 
                 {isLocked && (
+                    // emoji from - https://emojipedia.org/locked
                 <div className="position-absolute top-50 start-50 translate-middle bg-white rounded-3 p-3 shadow">
-                    🔒
+                    🔒 
                 </div>
                 )}
             </div>
@@ -59,3 +61,5 @@ function CapsuleCard({
         </Card>
   );
 }
+
+export default CapsuleCard

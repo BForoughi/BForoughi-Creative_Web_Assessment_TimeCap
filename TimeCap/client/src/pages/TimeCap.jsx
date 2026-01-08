@@ -7,9 +7,9 @@ import whiteLock from "../assets/icons/whiteLock.png"
 import unlock from "../assets/icons/unlock.png"
 import whitePhotos from "../assets/icons/whitePhotos.png"
 // placeholder image: - image was created by chat gpt
-import placeholderCover from "../assets/image/placeholderCover"
+import placeholderCover from "../assets/image/placeholderCover.png"
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import axios from 'axios'
 
 // This section was created by chatgpt as I didn't know how to get the bootstrap progress bar to work with the data stored in mongo db
@@ -120,6 +120,7 @@ function TimeCap(){
 
                 setAlbums(enriched)
             } catch(err){
+                // the ? means if this exists otherwise return undefinded so the app doesn't crash
                 setError(err?.response?.data?.message || "Failed to load albums")
             } finally{
                 setLoading(false)
@@ -148,7 +149,7 @@ function TimeCap(){
             )}
 
             <div className="row d-flex justify-content-center mt-3">
-                <div className="col-3">
+                <div className="col-12 col-md-5 col-lg-3 mb-1">
                     <HeaderCard id="card-purple" title="Locked Capsules">
                         <div className="card-header">
                             <img className='homeIcons' src={whiteLock} alt="" />
@@ -158,7 +159,7 @@ function TimeCap(){
                     </HeaderCard>
                 </div>
 
-                <div className="col-3">
+                <div className="col-12 col-md-5 col-lg-3 mb-2">
                     <HeaderCard id="card-pink" title="Ready to open">
                         <div className="card-header">
                             <img className='homeIcons' src={unlock} alt="" />
@@ -168,7 +169,7 @@ function TimeCap(){
                     </HeaderCard>
                 </div>
 
-                <div className="col-3">
+                <div className="col-12 col-md-5 col-lg-3 mb-1">
                     <HeaderCard id="card-blue" title="Total Photos">
                         <div className="card-header">
                             <img className='homeIcons' src={whitePhotos} alt="" />
@@ -178,10 +179,35 @@ function TimeCap(){
                 </div>
             </div>
 
-            <h3 className='fw-normal'>Your Capsules</h3>
+            <h3 id='your-capsules' className='fw-normal mt-3'>Your Capsules</h3>
             
-
-            
+            <div className="d-flex justify-content-center">
+                {/* displaying capsules if they exsist */}
+                {sortedAlbums.length === 0 ?(
+                    <div className="text-center p-4 rounded-4 shadow-sm bg-white">
+                        <h4 className="fw-normal">No capsules yet</h4>
+                        <p className="text-muted mb-0">
+                            Create your first TimeCap album by uploading photos and locking a capsule.
+                        </p>
+                    </div>
+                ) : (
+                    <div className="row g-4 w-75">
+                        {sortedAlbums.map((a) => (
+                            <div className="col-12 col-md-5 col-xl-4" key={a._id}>
+                            <CapsuleCard
+                                title={a.title}
+                                message={a.message}
+                                photoCount={a.photoCount}
+                                coverUrl={a.coverUrl}
+                                isLocked={a.isLocked}
+                                progress={a.progress}
+                                daysRemaining={a.daysRemaining}
+                            />
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </div>
 
             <br />
 

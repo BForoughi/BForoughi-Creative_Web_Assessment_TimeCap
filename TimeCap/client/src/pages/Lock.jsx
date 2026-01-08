@@ -115,9 +115,9 @@ function LockPage(){
             </p>
         </div>
 
-        <div className="d-flex justify-between">
-            <div id='lock-details' className="ms-5 me-5">
-                <Card id='lock-card' className='shadow border border-light-subtle p-2 rounded-4'>
+        <div className="d-flex justify-between flex-column flex-lg-row">
+            <div id='lock-details' className="ms-5 col-md-12 me-lg-5 responsive-width">
+                <Card id='lock-card' className='shadow border border-light-subtle p-2 rounded-4 col-md-11 col-sm-12'>
                     <Card.Body>
                         <Card.Title className='fw-normal fs-4'>Album Details</Card.Title>
                         <br />
@@ -142,7 +142,7 @@ function LockPage(){
                 </Card>
                 <br />
                 
-                <Card className='lock-card shadow border border-light-subtle p-2 mt-3 rounded-4'>
+                <Card className='lock-card shadow border border-light-subtle p-2 mt-3 rounded-4 col-md-11'>
                     <Card.Body>
                         <div id="card-title-container" className='d-flex justify-content-between'>
                             <Card.Title className='fw-normal fs-4'>Upload Pictures</Card.Title> 
@@ -164,7 +164,7 @@ function LockPage(){
                 </Card>
             </div>
 
-            <div id="lock-capsule">
+            <div id="lock-capsule" className='col-md-12 responsive-width'>
                 <GerneralCard 
                     id="lock-duration-card" 
                     cardName="shadow border border-light-subtle p-4 rounded-4 mb-3"

@@ -136,3 +136,23 @@ body {
   filter: blur(6px);
   transform: scale(1.05);
 }
+
+#your-capsules{
+  margin-left: 12.9%;
+}
+
+.capsule-card{
+  min-height: 39vh;
+}
+
+@media (max-width: 900px) {
+  .responsive-width {
+    min-width: 75% !important;
+  }
+
+  #lock-capsule{
+    margin-top: 15px;
+    margin-left: 3rem;
+  }
+}
+
