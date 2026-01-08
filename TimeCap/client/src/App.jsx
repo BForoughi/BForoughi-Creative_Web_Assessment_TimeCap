@@ -7,6 +7,7 @@ import TimeCap from "./pages/TimeCap"
 import RegisterForm from "./pages/RegisterForm"
 import LockPage from "./pages/Lock"
 import OpenCapsules from "./pages/OpenCapsules"
+import Messages from "./pages/Messages"
 
 import ProtectedRoute from "./components/ProtectedRoute"
 import { AuthProvider } from "./context/AuthContext"
@@ -20,7 +21,6 @@ function App() {
           <Route path="/" element={<LoginForm />} />
           <Route path="/TestConnection" element={<TestConnection />} />
           <Route path="/LandingPage" element={<LandingPage />} />
-          
           <Route path="/RegisterForm" element={<RegisterForm />} />
 
           <Route path="/TimeCap" element={
@@ -38,6 +38,12 @@ function App() {
           <Route path="/albums/:id" element={
             <ProtectedRoute>
               <OpenCapsules />
+            </ProtectedRoute>
+            } 
+          />
+          <Route path="/Messages" element={
+            <ProtectedRoute>
+              <Messages />
             </ProtectedRoute>
             } 
           />

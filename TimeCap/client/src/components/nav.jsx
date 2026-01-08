@@ -34,7 +34,7 @@ function AppNavbar(){
                                 <span className="app-nav__label">Home</span>
                             </Nav.Link>
 
-                            <Nav.Link as={NavLink} to="/messages" className="app-nav__link">
+                            <Nav.Link as={NavLink} to="/Messages" className="app-nav__link">
                                 <img className="app-nav__icon" src={messagesIcon} alt="Messenger icon" />
                                 <span className="app-nav__label">Messages</span>
                             </Nav.Link>
