@@ -116,8 +116,8 @@ function LockPage(){
             </p>
         </div>
 
-        <div className="d-flex justify-between flex-column flex-lg-row">
-            <div id='lock-details' className="ms-5 col-md-12 me-lg-5 responsive-width">
+        <div className="d-flex justify-between flex-column ms-lg-5 flex-lg-row">
+            <div id='lock-details' className="ms-5 col-md-12 responsive-width">
                 <Card id='lock-card' className='shadow border border-light-subtle p-2 rounded-4 col-md-11 col-sm-12'>
                     <Card.Body>
                         <Card.Title className='fw-normal fs-4'>Album Details</Card.Title>

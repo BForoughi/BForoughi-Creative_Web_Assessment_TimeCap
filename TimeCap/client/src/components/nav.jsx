@@ -33,21 +33,17 @@ function AppNavbar(){
                                 <img className="app-nav__icon" src={homeIcon} alt="Home icon" />
                                 <span className="app-nav__label">Home</span>
                             </Nav.Link>
+                            
+                            <Nav.Link as={NavLink} to="/LockPage" className="app-nav__link">
+                                <img className="app-nav__icon" src={lockIcon} alt="Padlock icon" />
+                                <span className="app-nav__label">Lock</span>
+                            </Nav.Link>
 
                             <Nav.Link as={NavLink} to="/Messages" className="app-nav__link">
                                 <img className="app-nav__icon" src={messagesIcon} alt="Messenger icon" />
                                 <span className="app-nav__label">Messages</span>
                             </Nav.Link>
 
-                            <Nav.Link as={NavLink} to="/LockPage" className="app-nav__link">
-                                <img className="app-nav__icon" src={lockIcon} alt="Padlock icon" />
-                                <span className="app-nav__label">Lock</span>
-                            </Nav.Link>
-
-                            <Nav.Link as={NavLink} to="/camera" className="app-nav__link">
-                                <img className="app-nav__icon" src={cameraIcon} alt="Camera icon" />
-                                <span className="app-nav__label">Camera</span>
-                            </Nav.Link>
                         </>
                         ) : (
                         <>
