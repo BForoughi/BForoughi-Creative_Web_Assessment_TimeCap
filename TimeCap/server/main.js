@@ -315,6 +315,18 @@ app.patch("/api/albums/:id/lock", storeUserId, async (req, res) => {
         const album = await Album.findOne({ _id: req.params.id, userId: req.user._id });
         if (!album) return res.status(404).json({ success: false, message: "Album not found" });
 
+        // ensuring capsule can't be created without a photo - incase front end saftey fails
+        const photoCount = await Photo.countDocuments({
+            userId: req.user._id,
+            albumId: album._id
+        })
+        if(photoCount === 0){
+            return res.status(400).json({
+                success: false,
+                message: "You must upload at least 1 photo before locking this capsule"
+            })
+        }
+
         let lockedUntil;
 
         if (unlockAt) {
@@ -326,7 +338,7 @@ app.patch("/api/albums/:id/lock", storeUserId, async (req, res) => {
         } else {
             return res.status(400).json({
                 success: false,
-                message: "Provide unlockAt or lockForSeconds",
+                message: "Please provide unlock date or use one of the presets",
             });
         }
 

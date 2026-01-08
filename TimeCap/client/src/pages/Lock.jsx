@@ -82,16 +82,17 @@ function LockPage(){
         setSaving(true)
 
         try {
-            // getting the id from createAlbumIfNeeded function
-            const id = await createAlbumIfNeeded()
-
             // error handling
             if (!unlockAt && !lockForSeconds) {
                 throw new Error("Pick a duration or choose a custom unlock date.")
             }
+
             if (photoCount < 1) {
                 throw new Error("Upload at least 1 photo before locking.")
             }
+
+            // getting the id from createAlbumIfNeeded function
+            const id = await createAlbumIfNeeded()
 
             const body = unlockAt ? { unlockAt } : { lockForSeconds }
 
@@ -102,7 +103,7 @@ function LockPage(){
         } catch (err) {
             setError(err?.response?.data?.message || err.message || "Something went wrong")
         } finally {
-        setSaving(false)
+            setSaving(false)
         }
     };
 
