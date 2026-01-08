@@ -17,6 +17,10 @@ const albumSchema = new mongoose.Schema(
             trim: true, 
             default: ""
         },
+        lockedAt:{
+            type: Date,
+            default: null
+        },
         lockedUntil:{
             type: Date,
             default: null

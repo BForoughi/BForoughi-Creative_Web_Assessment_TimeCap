@@ -29,7 +29,7 @@ function calcProgress(createdAt, lockedUntil) {
 
   const total = end - start;
   const passed = clamp(now - start, 0, total);
-  return Math.round((passed / total) * 100);
+  return Math.max(1, Math.floor((passed / total) * 100));
 }
 
 function calcDaysRemaining(lockedUntil) {
@@ -98,15 +98,15 @@ function TimeCap(){
                             const coverUrl = firstVisible?.imageUrl || placeholderCover
                             
                             // chatgpt:
-                            const progress = a.isLocked ? calcProgress(a.createdAt, a.lockedUntil) : 100;
+                            const progress = a.isLocked ? calcProgress(a.lockedAt, a.lockedUntil) : 100;
                             const daysRemaining = a.isLocked ? calcDaysRemaining(a.lockedUntil) : 0;
 
                             return{
                                 ...a,
-                                photoCount: 0,
-                                coverUrl: placeholderCover,
-                                progress: a.isLocked ? calcProgress(a.createdAt, a.lockedUntil) : 100,
-                                daysRemaining: a.isLocked ? calcDaysRemaining(a.lockedUntil) : 0
+                                photoCount,
+                                coverUrl,
+                                progress,
+                                daysRemaining
                             }
                         } catch (err) {
                             // if photo fetch fails, still show the album card
@@ -196,21 +196,26 @@ function TimeCap(){
                     </div>
                 ) : (
                     <div className="row g-4 w-75">
-                        {sortedAlbums.map((a) => (
-                            <div className="col-12 col-md-6 col-xl-4" key={a._id}>
-                            <CapsuleCard
-                                title={a.title}
-                                message={a.message}
-                                photoCount={a.photoCount}
-                                coverUrl={a.coverUrl}
-                                isLocked={a.isLocked}
-                                progress={a.progress}
-                                daysRemaining={a.daysRemaining}
-                            />
+                        <div className="col-12 col-lg-8">
+                            <div className="row g-4">
+                                {sortedAlbums.map((a) => (
+                                    <div className="col-12 col-md-6 " key={a._id}>
+                                        <CapsuleCard
+                                            title={a.title}
+                                            message={a.message}
+                                            photoCount={a.photoCount}
+                                            coverUrl={a.coverUrl}
+                                            isLocked={a.isLocked}
+                                            progress={a.progress}
+                                            daysRemaining={a.daysRemaining}
+                                        />
+                                    </div>
+                                ))}
                             </div>
-                        ))}
+                        </div>
+                        
 
-                        <div className="col-12 col-md-8 col-xl-4">
+                        <div className="col-12 col-md-8 col-lg-4">
                             <GerneralCard
                                 id="quick-lock-card" 
                                 cardName="shadow border border-light-subtle p-4 rounded-4 mb-3"
@@ -225,12 +230,12 @@ function TimeCap(){
                                 <div id="small-durations-container">
                                     <input className='form-control pt-2 pb-2 rounded-4' placeholder='Capsule name...' type="text" />
                                     <div className="row d-flex gap-4 justify-content-center mt-3">
-                                        <button type='button' onClick="" className='duration-btns col-5 rounded-3 mb-3 pt-2 pb-2 fw-medium'>1 Month</button>
-                                        <button type='button' onClick="" className='duration-btns col-5 rounded-3 mb-3 pt-2 pb-2 fw-medium'>3 Months</button>
+                                        <button type='button' className='duration-btns col-5 rounded-3 mb-3 pt-2 pb-2 fw-medium'>1 Month</button>
+                                        <button type='button' className='duration-btns col-5 rounded-3 mb-3 pt-2 pb-2 fw-medium'>3 Months</button>
                                     </div>
                                     <div className="row d-flex gap-4 justify-content-center">
-                                        <button type='button' onClick="" className='duration-btns col-5 rounded-3 mb-3 pt-2 pb-2 fw-medium'>6 Months</button>
-                                        <button type='button' onClick="" className='duration-btns col-5 rounded-3 mb-3 pt-2 pb-2 fw-medium'>1 Year</button>
+                                        <button type='button' className='duration-btns col-5 rounded-3 mb-3 pt-2 pb-2 fw-medium'>6 Months</button>
+                                        <button type='button' className='duration-btns col-5 rounded-3 mb-3 pt-2 pb-2 fw-medium'>1 Year</button>
                                     </div>
 
                                     <button 

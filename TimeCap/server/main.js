@@ -338,6 +338,7 @@ app.patch("/api/albums/:id/lock", storeUserId, async (req, res) => {
             });
         }
 
+        album.lockedAt = new Date()
         album.lockedUntil = lockedUntil;
         await album.save();
 
