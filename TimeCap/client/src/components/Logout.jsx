@@ -2,6 +2,7 @@ import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../stylesheets/App.css"
 
 function LogoutButton(){
     const {setUser} = useAuth()
@@ -26,10 +27,7 @@ function LogoutButton(){
     }
 
     return (
-        <div>
-            <button onClick={handleLogout}>Logout</button>
-            {message && <p>{message}</p>}
-        </div>
+        <button className="btn btn-danger w-100 mb-3 rounded-3" style={{height: "5vh"}} onClick={handleLogout}>Logout</button>
     )
     
 }

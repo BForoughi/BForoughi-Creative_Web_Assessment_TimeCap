@@ -6,6 +6,7 @@ import LoginForm from "./pages/LoginForm"
 import TimeCap from "./pages/TimeCap"
 import RegisterForm from "./pages/RegisterForm"
 import LockPage from "./pages/Lock"
+import OpenCapsules from "./pages/OpenCapsules"
 
 import ProtectedRoute from "./components/ProtectedRoute"
 import { AuthProvider } from "./context/AuthContext"
@@ -31,6 +32,12 @@ function App() {
           <Route path="/LockPage" element={
             <ProtectedRoute>
               <LockPage />
+            </ProtectedRoute>
+            } 
+          />
+          <Route path="/albums/:id" element={
+            <ProtectedRoute>
+              <OpenCapsules />
             </ProtectedRoute>
             } 
           />

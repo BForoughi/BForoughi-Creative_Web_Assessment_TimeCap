@@ -201,6 +201,7 @@ function TimeCap(){
                                 {sortedAlbums.map((a) => (
                                     <div className="col-12 col-md-6 " key={a._id}>
                                         <CapsuleCard
+                                            id={a._id}
                                             title={a.title}
                                             message={a.message}
                                             photoCount={a.photoCount}
@@ -258,15 +259,12 @@ function TimeCap(){
                                     )}
                                 </div>
                             </GerneralCard>
+                            <LogoutButton></LogoutButton>
                         </div>
                         
                     </div>
                 )}
             </div>
-
-            <br />
-
-            <LogoutButton></LogoutButton>
         </>
     )
 }

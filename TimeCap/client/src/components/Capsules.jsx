@@ -1,7 +1,9 @@
 import { Card, ProgressBar, Badge } from "react-bootstrap";
 import "../stylesheets/App.css"
+import { Link } from "react-router-dom";
 
 function CapsuleCard({
+    id,
     title,
     message,
     photoCount,
@@ -10,7 +12,8 @@ function CapsuleCard({
     progress,
     daysRemaining
 }){
-    return (
+
+    const content = (
         <Card className="shadow-sm rounded-4 overflow-hidden capsule-card">
             <div className="position-relative">
                 <Card.Img
@@ -59,7 +62,15 @@ function CapsuleCard({
                 )}
             </Card.Body>
         </Card>
-  );
+    )
+
+    if (isLocked) return content;
+        
+    return (
+        <Link to={`/albums/${id}`} className="text-decoration-none text-reset">
+            {content}
+        </Link>
+    );
 }
 
 export default CapsuleCard
